@@ -269,6 +269,23 @@
     border-radius: 99px; padding: 3px 10px;
   }
 
+  /* 2단 헤더 (그룹 타이틀) */
+  thead th.group-head {
+    text-align: center;
+    font-size: 13px; font-weight: 800; letter-spacing: 2px;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  thead th.group-head.kpi-group {
+    background: var(--surface2);
+    color: var(--text-primary);
+  }
+  thead th.group-head.grade-group {
+    background: var(--accent-light);
+    color: var(--accent);
+    border-left: 1px solid var(--border);
+  }
+
   td.band-cell {
     text-align: center; font-family: 'Fira Code', monospace;
     font-size: 12.5px; color: var(--text-secondary); white-space: nowrap;
@@ -431,6 +448,9 @@
   }
 
   .log-filters { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+  .log-head-left { display: flex; align-items: center; gap: 14px; }
+  .log-head-left .add-btn { padding: 8px 16px; font-size: 12.5px; }
 
   .filter-select {
     padding: 8px 12px;
@@ -735,7 +755,6 @@
     .header-desc { font-size: 12.5px; }
     .year-badge { display: none; }
     .export-btn, .drive-setup-btn { flex: 1; min-width: 130px; justify-content: center; padding: 11px 10px; font-size: 12.5px; }
-    .add-btn { width: 100%; justify-content: center; padding: 12px; font-size: 14px; }
 
     /* Sync bar */
     .sync-bar { flex-wrap: wrap; gap: 8px; padding: 10px 12px; }
@@ -745,6 +764,8 @@
     /* 섹션 헤더 · 필터 */
     .section-title { font-size: 11.5px; letter-spacing: 1.2px; }
     .table-header-row { gap: 8px; margin-bottom: 10px; }
+    .log-head-left { width: 100%; justify-content: space-between; gap: 10px; }
+    .log-head-left .add-btn { padding: 10px 16px; font-size: 13px; flex-shrink: 0; }
     .log-count-badge { font-size: 11px; }
     .log-filters { width: 100%; }
     .filter-select { flex: 1; min-width: 130px; font-size: 12.5px; }
@@ -757,6 +778,7 @@
     .table-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
     table { min-width: 780px; font-size: 13px; }
     thead th { padding: 11px 10px; font-size: 10.5px; letter-spacing: 0.6px; }
+    thead th.group-head { font-size: 11.5px; letter-spacing: 1.2px; padding: 10px; }
     tbody td { padding: 12px 10px; }
     td.band-cell { font-size: 11.5px; }
     .detail-cell { font-size: 13px; }
@@ -808,10 +830,6 @@
         Drive 연동
         <span class="drive-status-dot" id="driveStatusDot"></span>
       </button>
-      <button class="add-btn" onclick="openModal()">
-        <svg viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="white" stroke-width="2.2" stroke-linecap="round"/></svg>
-        실적 등록
-      </button>
     </div>
   </div>
 
@@ -834,6 +852,10 @@
     <div class="table-wrap">
       <table>
         <thead>
+          <tr>
+            <th colspan="4" class="group-head kpi-group">KPI 평가 항목</th>
+            <th colspan="5" class="group-head grade-group">평가 기준 및 등급</th>
+          </tr>
           <tr>
             <th>평가항목</th>
             <th>KPI</th>
@@ -892,10 +914,16 @@
     </div>
   </div>
 
-  <!-- 실적 이력 -->
+  <!-- 실적 현황 -->
   <div class="log-section">
     <div class="table-header-row">
-      <div class="section-title">실적 등록 이력</div>
+      <div class="log-head-left">
+        <div class="section-title">실적 등록 현황</div>
+        <button class="add-btn" onclick="openModal()">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="white" stroke-width="2.2" stroke-linecap="round"/></svg>
+          실적 등록
+        </button>
+      </div>
       <div class="log-filters">
         <select class="filter-select" id="filterCat" onchange="renderLog()">
           <option value="">전체 구분</option>
@@ -1007,46 +1035,6 @@
   </div>
 </div>
 
-<!-- Drive Setup Modal -->
-<div class="modal-overlay" id="setupModal">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">⚙ Google Drive 연동 설정</div>
-      <button class="modal-close" onclick="closeSetupModal()">
-        <svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="#6b7399" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-    <div class="setup-modal-desc">
-      Google Apps Script를 배포하면 이 대시보드의 데이터가 지정된 Drive 폴더
-      (<code style="font-family:'Fira Code',monospace;font-size:11px">마케팅 KPI</code>)의
-      스프레드시트에 자동 저장됩니다.
-    </div>
-    <div class="setup-step">
-      <div class="setup-num">1</div>
-      <div class="setup-step-text">
-        <a href="https://script.google.com" target="_blank" style="color:var(--accent)">script.google.com</a>에서 새 프로젝트 생성 후 아래 코드 붙여넣기
-        <button class="copy-btn" onclick="copyGasCode()">📋 코드 복사</button>
-      </div>
-    </div>
-    <div class="setup-step">
-      <div class="setup-num">2</div>
-      <div class="setup-step-text">배포 → 새 배포 → 웹 앱 · 액세스 권한 <code>모든 사용자</code>로 배포</div>
-    </div>
-    <div class="setup-step">
-      <div class="setup-num">3</div>
-      <div class="setup-step-text">발급된 웹 앱 URL을 아래에 붙여넣고 저장</div>
-    </div>
-    <div class="form-group" style="margin-top:16px">
-      <label class="form-label">APPS SCRIPT 웹 앱 URL</label>
-      <input class="form-input" type="text" id="fScriptUrl" placeholder="https://script.google.com/macros/s/.../exec">
-    </div>
-    <div class="modal-footer">
-      <button class="btn-cancel" onclick="closeSetupModal()">취소</button>
-      <button class="btn-save" onclick="saveScriptUrl()">저장 및 연결 테스트</button>
-    </div>
-  </div>
-</div>
-
 <script>
 /* ═══════════════════════════════════════════════
    마케팅 인프라 정량 환산 기준 (컨텐츠별 공수 점수 × 진행 횟수)
@@ -1102,16 +1090,17 @@ const GRADE_LETTERS = ['C', 'B', 'A', 'S'];
 const GRADE_PCTS    = [90, 95, 100, 105];
 
 const ENTRIES_KEY     = 'sh_kpi_entries';
-const SCRIPT_KEY      = 'sh_kpi_script_url';
 const KPI_RESULTS_KEY = 'sh_kpi_results';
 const KPI_LOGS_KEY    = 'sh_kpi_logs';
+
+/* Apps Script 웹 앱 URL — 워크오더와 동일하게 코드에 고정 (재입력 불필요) */
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwzz9BcJgj1ORN03LS8fZjj7q5Y-Xu9TT0b-mFJZ3ht3Kxry16WpSrvNMGH16FfvkX0/exec';
 
 /* ─── 상태 ─── */
 let entries = loadLocal();
 let nextId = entries.length ? Math.max(...entries.map(e => Number(e.id) || 0)) + 1 : 1;
 let editingId = null;
 let deleteTargetId = null;
-let SCRIPT_URL = localStorage.getItem(SCRIPT_KEY) || '';
 let isSyncing = false;
 
 function loadLocal() {
@@ -1590,34 +1579,11 @@ async function saveToDrive() {
   document.getElementById('btnSave').disabled = false;
 }
 
-/* ─── Setup 모달 ─── */
+/* ─── Drive 연동 정보 (URL 코드 고정 — 워크오더와 동일 방식) ─── */
 function openSetupModal() {
-  document.getElementById('fScriptUrl').value = SCRIPT_URL;
-  document.getElementById('setupModal').classList.add('open');
+  alert('Apps Script URL이 이미 설정되어 있습니다.\n\n배포 URL: ' + SCRIPT_URL.substring(0, 60) + '...\n\n페이지를 열면 자동으로 불러오고, 실적 등록·수정·삭제 시 자동 저장됩니다.');
 }
-function closeSetupModal() { document.getElementById('setupModal').classList.remove('open'); }
-
-async function saveScriptUrl() {
-  const url = document.getElementById('fScriptUrl').value.trim();
-  if (!url) {
-    SCRIPT_URL = '';
-    localStorage.removeItem(SCRIPT_KEY);
-    setSyncStatus('disconnected', '로컬 저장 모드 — Drive 연동이 해제되었습니다');
-    closeSetupModal();
-    return;
-  }
-  SCRIPT_URL = url;
-  localStorage.setItem(SCRIPT_KEY, url);
-  closeSetupModal();
-  setSyncStatus('loading', '연결 테스트 중...');
-  try {
-    const json = await jsonpFetch(SCRIPT_URL + '?action=load');
-    if (!json.ok) throw new Error(json.error);
-    setSyncStatus('connected', '✅ 연결 성공 — <strong>⬇ 불러오기</strong>로 데이터를 가져오거나 <strong>☁ 저장</strong>으로 업로드하세요');
-  } catch (err) {
-    setSyncStatus('error', '❌ 연결 실패: ' + err.message);
-  }
-}
+function closeSetupModal() {}
 
 /* ─── Apps Script 코드 (지정 Drive 폴더에 스프레드시트 자동 생성) ─── */
 const GAS_CODE = `/** 소프트힐스 마케팅 KPI — Google Apps Script
@@ -1789,7 +1755,7 @@ function initSelects() {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeModal(); closeConfirm(); closeSetupModal(); closeKpiLog(); }
 });
-['entryModal', 'setupModal', 'kpiLogModal'].forEach(id => {
+['entryModal', 'kpiLogModal'].forEach(id => {
   document.getElementById(id).addEventListener('click', e => {
     if (e.target.id === id) document.getElementById(id).classList.remove('open');
   });
@@ -1797,12 +1763,8 @@ document.addEventListener('keydown', e => {
 
 initSelects();
 render();
-if (SCRIPT_URL) {
-  setSyncStatus('connected', '☁ Drive 연동됨 — <strong>⬇ 불러오기</strong>로 최신 데이터를 가져오세요');
-  setTimeout(() => loadFromDrive(), 400);
-} else {
-  setSyncStatus('disconnected', '로컬 저장 모드 — <strong>Drive 연동</strong> 버튼으로 클라우드 저장을 설정하세요');
-}
+setSyncStatus('connected', '☁ Google Sheets 연동됨 — 최신 데이터를 불러오는 중...');
+setTimeout(() => loadFromDrive(), 400);
 </script>
 </body>
 </html>
