@@ -865,7 +865,13 @@
   <!-- 정량 환산 점수 현황 -->
   <div class="score-section">
     <div class="table-header-row">
-      <div class="section-title">마케팅 인프라 정량 환산 점수 현황</div>
+      <div class="log-head-left">
+        <div class="section-title">마케팅 인프라 정량 환산 점수 현황</div>
+        <button class="add-btn" onclick="openCatModal()">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="white" stroke-width="2.2" stroke-linecap="round"/></svg>
+          항목 추가
+        </button>
+      </div>
       <div class="log-count-badge">산식: 컨텐츠별 공수 점수 × 진행 횟수 · 점수/목표 횟수 수정 가능</div>
     </div>
     <div class="table-wrap">
@@ -880,6 +886,7 @@
             <th class="right">예상 점수</th>
             <th class="right">달성 점수</th>
             <th>달성률</th>
+            <th class="center">관리</th>
           </tr>
         </thead>
         <tbody id="scoreTableBody"></tbody>
@@ -890,6 +897,7 @@
             <td class="num-cell" id="totPlan">—</td>
             <td class="num-cell" id="totActual">—</td>
             <td id="totRate" style="font-family:'Fira Code',monospace;font-weight:700">—</td>
+            <td></td>
           </tr>
         </tfoot>
       </table>
@@ -1004,6 +1012,52 @@
   </div>
 </div>
 
+<!-- 정량환산 항목 추가 Modal -->
+<div class="modal-overlay" id="catModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">정량환산 항목 추가</div>
+      <button class="modal-close" onclick="closeCatModal()">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="#6b7399" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label class="form-label">구분</label>
+        <input class="form-input" type="text" id="fcGroup" placeholder="예: 뉴스레터 발행">
+      </div>
+      <div class="form-group full">
+        <label class="form-label">상세</label>
+        <input class="form-input" type="text" id="fcDetail" placeholder="예: 월간 뉴스레터 1회 발행">
+      </div>
+      <div class="form-group">
+        <label class="form-label">점수 (P)</label>
+        <input class="form-input" type="number" id="fcPoint" min="1" value="5">
+      </div>
+      <div class="form-group">
+        <label class="form-label">목표 횟수</label>
+        <input class="form-input" type="number" id="fcTarget" min="1" value="10">
+      </div>
+      <div class="form-group">
+        <label class="form-label">단위</label>
+        <select class="form-select" id="fcUnit">
+          <option value="건">건</option>
+          <option value="회">회</option>
+          <option value="편">편</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">비고 (선택)</label>
+        <input class="form-input" type="text" id="fcNote" placeholder="설명 메모">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeCatModal()">취소</button>
+      <button class="btn-save" onclick="saveCategory()">추가</button>
+    </div>
+  </div>
+</div>
+
 <!-- 삭제 확인 -->
 <div class="confirm-overlay" id="confirmOverlay">
   <div class="confirm-box">
@@ -1021,7 +1075,7 @@
 /* ═══════════════════════════════════════════════
    마케팅 인프라 정량 환산 기준 (컨텐츠별 공수 점수 × 진행 횟수)
 ═══════════════════════════════════════════════ */
-const CATS = [
+const DEFAULT_CATS = [
   { key: 'homepage',    group: '홈페이지 운영 관리 전반',      detail: '홈페이지 유지보수 / 컨텐츠 작성',                point: 50, target: 2,  unit: '건', note: '국문, 영문 홈페이지 관련',                                             color: '#4f7aff' },
   { key: 'sns',         group: 'SNS 미디어 채널 관리 전반',    detail: '1개 컨텐츠 작성 (인스타그램, 링크드인)',          point: 5,  target: 60, unit: '회', note: '인스타그램, 링크드인 피드 컨텐츠 작성',                                 color: '#00c48c' },
   { key: 'blog',        group: '블로그 포스팅 및 뉴스레터',    detail: '1개 컨텐츠 작성',                                point: 5,  target: 60, unit: '건', note: '포스팅 1건 당 점수 환산',                                              color: '#f5a623' },
@@ -1069,7 +1123,10 @@ const GRADE_PCTS    = [90, 95, 100, 105];
 const ENTRIES_KEY     = 'sh_kpi_entries';
 const KPI_RESULTS_KEY = 'sh_kpi_results';
 const KPI_LOGS_KEY    = 'sh_kpi_logs';
-const CAT_CONFIG_KEY  = 'sh_kpi_cat_config';
+const CAT_CONFIG_KEY  = 'sh_kpi_cat_config'; // (구버전 마이그레이션용)
+const CATS_KEY        = 'sh_kpi_cats';
+
+const CAT_COLORS = ['#4f7aff', '#00c48c', '#f5a623', '#ff5c5c', '#ff8fab', '#9b6dff', '#00b8d9', '#adb5cc', '#5cd6a9', '#e6739f'];
 
 /* Apps Script 웹 앱 URL — 워크오더와 동일하게 코드에 고정 (재입력 불필요) */
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwzz9BcJgj1ORN03LS8fZjj7q5Y-Xu9TT0b-mFJZ3ht3Kxry16WpSrvNMGH16FfvkX0/exec';
@@ -1105,21 +1162,30 @@ function saveKpiLogs() {
   try { localStorage.setItem(KPI_LOGS_KEY, JSON.stringify(kpiLogs)); } catch {}
 }
 
-/* 정량환산 점수·목표 횟수 수정값: { homepage: {point, target}, ... } */
-let catConfig = loadCatConfig();
-function loadCatConfig() {
-  try { return JSON.parse(localStorage.getItem(CAT_CONFIG_KEY) || '{}'); } catch { return {}; }
+/* 정량환산 항목 목록 (추가/삭제/수정 가능 — 기본값 + 사용자 변경분) */
+let cats = loadCats();
+function loadCats() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(CATS_KEY) || 'null');
+    if (Array.isArray(saved) && saved.length) return saved;
+  } catch {}
+  // 구버전 catConfig(점수/목표 수정값) 마이그레이션
+  let legacy = {};
+  try { legacy = JSON.parse(localStorage.getItem(CAT_CONFIG_KEY) || '{}'); } catch {}
+  return applyCatConfig(legacy);
 }
-function saveCatConfig() {
-  try { localStorage.setItem(CAT_CONFIG_KEY, JSON.stringify(catConfig)); } catch {}
+function applyCatConfig(cfg) {
+  return DEFAULT_CATS.map(c => {
+    const o = cfg[c.key] || {};
+    return { ...c, point: Number(o.point ?? c.point), target: Number(o.target ?? c.target) };
+  });
+}
+function saveCats() {
+  try { localStorage.setItem(CATS_KEY, JSON.stringify(cats)); } catch {}
 }
 
 /* ─── 유틸 ─── */
-function effCat(c) {
-  const o = catConfig[c.key] || {};
-  return { ...c, point: Number(o.point ?? c.point), target: Number(o.target ?? c.target) };
-}
-const catByKey = k => { const c = CATS.find(x => x.key === k); return c ? effCat(c) : undefined; };
+const catByKey = k => cats.find(x => x.key === k);
 const fmt = n => n.toLocaleString('ko-KR');
 const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
@@ -1280,21 +1346,79 @@ function deleteKpiLogEntry(id) {
 }
 
 function catStats() {
-  return CATS.map(c => {
-    const ec = effCat(c);
+  return cats.map(c => {
     const rows = entries.filter(e => e.cat === c.key);
     const count = rows.reduce((s, e) => s + (Number(e.count) || 0), 0);
-    return { ...ec, count, planPoint: ec.point * ec.target, actualPoint: ec.point * count };
+    return { ...c, count, planPoint: c.point * c.target, actualPoint: c.point * count };
   });
 }
 
 function onCatConfigInput(key, field, val) {
-  if (!catConfig[key]) catConfig[key] = {};
-  catConfig[key][field] = Number(val) || 0;
-  saveCatConfig();
+  const c = cats.find(x => x.key === key);
+  if (!c) return;
+  c[field] = Number(val) || 0;
+  saveCats();
   const fSel = document.getElementById('filterCat').value;
   initSelects();
   document.getElementById('filterCat').value = fSel;
+  render();
+  if (SCRIPT_URL) saveKpiToSheets();
+}
+
+/* ─── 정량환산 항목 추가/삭제 ─── */
+function openCatModal() {
+  document.getElementById('fcGroup').value = '';
+  document.getElementById('fcDetail').value = '';
+  document.getElementById('fcPoint').value = 5;
+  document.getElementById('fcTarget').value = 10;
+  document.getElementById('fcUnit').value = '건';
+  document.getElementById('fcNote').value = '';
+  document.getElementById('catModal').classList.add('open');
+  setTimeout(() => document.getElementById('fcGroup').focus(), 250);
+}
+function closeCatModal() { document.getElementById('catModal').classList.remove('open'); }
+
+function saveCategory() {
+  const group  = document.getElementById('fcGroup').value.trim();
+  const detail = document.getElementById('fcDetail').value.trim();
+  const point  = Number(document.getElementById('fcPoint').value);
+  const target = Number(document.getElementById('fcTarget').value);
+  const unit   = document.getElementById('fcUnit').value;
+  const note   = document.getElementById('fcNote').value.trim();
+
+  if (!group)  { alert('구분을 입력하세요.'); return; }
+  if (!detail) { alert('상세를 입력하세요.'); return; }
+  if (!point || point < 1)   { alert('점수는 1 이상이어야 합니다.'); return; }
+  if (!target || target < 1) { alert('목표 횟수는 1 이상이어야 합니다.'); return; }
+
+  cats.push({
+    key: 'cat_' + Date.now(),
+    group, detail, point, target, unit, note,
+    color: CAT_COLORS[cats.length % CAT_COLORS.length],
+  });
+  saveCats();
+  initSelects();
+  render();
+  closeCatModal();
+  if (SCRIPT_URL) saveKpiToSheets();
+}
+
+function deleteCategory(key) {
+  const c = cats.find(x => x.key === key);
+  if (!c) return;
+  const related = entries.filter(e => e.cat === key);
+  const msg = `"${c.group} — ${c.detail}" 항목을 삭제할까요?`
+    + (related.length ? `\n등록된 실적 ${related.length}건도 함께 삭제됩니다.` : '');
+  if (!confirm(msg)) return;
+
+  cats = cats.filter(x => x.key !== key);
+  saveCats();
+  if (related.length) {
+    entries = entries.filter(e => e.cat !== key);
+    saveLocal();
+    if (SCRIPT_URL) related.forEach(e => deleteRowFromSheets(e.id));
+  }
+  initSelects();
   render();
   if (SCRIPT_URL) saveKpiToSheets();
 }
@@ -1318,6 +1442,11 @@ function renderScoreTable() {
       <td class="progress-cell">
         <div class="progress-track"><div class="progress-fill" style="background:${s.color}" data-w="${w}"></div></div>
         <div class="progress-label">${pct}%</div>
+      </td>
+      <td class="action-cell">
+        <button class="btn-delete" onclick="deleteCategory('${s.key}')" title="항목 삭제">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 3.5h10M5.5 3.5V2h3v1.5M3.5 3.5l.6 8a1 1 0 001 .9h3.8a1 1 0 001-.9l.6-8" stroke="#ff5c5c" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </td>
     </tr>`;
   }).join('');
@@ -1385,7 +1514,7 @@ function openModal(id) {
   const e = editingId != null ? entries.find(x => x.id === editingId) : null;
   document.getElementById('entryModalTitle').textContent = e ? '실적 수정' : '실적 등록';
   document.getElementById('fDate').value  = e ? e.date : new Date().toISOString().slice(0, 10);
-  document.getElementById('fCat').value   = e ? e.cat : CATS[0].key;
+  document.getElementById('fCat').value   = e ? e.cat : (cats[0] ? cats[0].key : '');
   document.getElementById('fTitle').value = e ? e.title : '';
   document.getElementById('fCount').value = e ? e.count : 1;
   document.getElementById('fNote').value  = e ? (e.note || '') : '';
@@ -1526,9 +1655,14 @@ async function loadFromDrive() {
       kpiLogs = json.kpiLogs;
       saveKpiLogs();
     }
-    if (json.catConfig && typeof json.catConfig === 'object') {
-      catConfig = json.catConfig;
-      saveCatConfig();
+    if (Array.isArray(json.cats) && json.cats.length) {
+      cats = json.cats;
+      saveCats();
+      initSelects();
+    } else if (json.catConfig && typeof json.catConfig === 'object' && Object.keys(json.catConfig).length) {
+      // 구버전 데이터 마이그레이션
+      cats = applyCatConfig(json.catConfig);
+      saveCats();
       initSelects();
     }
     render();
@@ -1555,7 +1689,7 @@ function saveKpiToSheets() {
   kpiSaveTimer = setTimeout(async () => {
     try {
       setSyncStatus('saving', 'KPI 실적 저장 중...');
-      await apiPost({ action: 'save_kpi', kpiResults, kpiLogs, catConfig });
+      await apiPost({ action: 'save_kpi', kpiResults, kpiLogs, cats });
       setSyncStatus('connected', '☁ 저장 완료 · ' + new Date().toLocaleString('ko-KR'));
     } catch (err) {
       setSyncStatus('error', '❌ 저장 실패: ' + err.message);
@@ -1580,7 +1714,7 @@ async function saveToDrive() {
   document.getElementById('btnSave').disabled = true;
   try {
     for (const row of entries) await apiPost({ action: 'save_row', row });
-    await apiPost({ action: 'save_kpi', kpiResults, kpiLogs, catConfig });
+    await apiPost({ action: 'save_kpi', kpiResults, kpiLogs, cats });
     setSyncStatus('connected', '☁ 저장 완료 · ' + new Date().toLocaleString('ko-KR'));
   } catch (err) {
     setSyncStatus('error', '❌ 저장 실패: ' + err.message);
@@ -1647,7 +1781,7 @@ function doGet(e) {
   const sh = getSheet_();
   let kv = {};
   try { kv = JSON.parse(getKpiSheet_().getRange(1, 1).getValue() || '{}'); } catch (err) {}
-  const out = { ok: true, data: readAll_(sh), kpiResults: kv.kpiResults || {}, kpiLogs: kv.kpiLogs || {}, catConfig: kv.catConfig || {} };
+  const out = { ok: true, data: readAll_(sh), kpiResults: kv.kpiResults || {}, kpiLogs: kv.kpiLogs || {}, cats: kv.cats || [], catConfig: kv.catConfig || {} };
   const cb = e.parameter.callback;
   const body = cb ? cb + '(' + JSON.stringify(out) + ')' : JSON.stringify(out);
   return ContentService.createTextOutput(body)
@@ -1663,7 +1797,7 @@ function doPost(e) {
       getKpiSheet_().getRange(1, 1).setValue(JSON.stringify({
         kpiResults: body.kpiResults || {},
         kpiLogs: body.kpiLogs || {},
-        catConfig: body.catConfig || {}
+        cats: body.cats || []
       }));
     } else if (body.action === 'save_row') {
       const r = body.row;
@@ -1756,17 +1890,17 @@ function exportExcel() {
 
 /* ─── 초기화 ─── */
 function initSelects() {
-  const optHtml = CATS.map(c => { const e = effCat(c); return `<option value="${e.key}">${e.group} — ${e.detail} (${e.point}P/${e.unit})</option>`; }).join('');
+  const optHtml = cats.map(c => `<option value="${c.key}">${c.group} — ${c.detail} (${c.point}P/${c.unit})</option>`).join('');
   document.getElementById('fCat').innerHTML = optHtml;
   document.getElementById('filterCat').innerHTML =
     '<option value="">전체 구분</option>' +
-    CATS.map(c => `<option value="${c.key}">${c.group} — ${c.detail}</option>`).join('');
+    cats.map(c => `<option value="${c.key}">${c.group} — ${c.detail}</option>`).join('');
 }
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeModal(); closeConfirm(); closeKpiLog(); }
+  if (e.key === 'Escape') { closeModal(); closeConfirm(); closeKpiLog(); closeCatModal(); }
 });
-['entryModal', 'kpiLogModal'].forEach(id => {
+['entryModal', 'kpiLogModal', 'catModal'].forEach(id => {
   document.getElementById(id).addEventListener('click', e => {
     if (e.target.id === id) document.getElementById(id).classList.remove('open');
   });
