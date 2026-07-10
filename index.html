@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>㈜소프트힐스 마케팅 KPI 성과 지표 2026</title>
+<!-- Pretendard: 한국어 가독성 최적화 고딕체 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<!-- Fira Code: 숫자/코드용 모노스페이스 -->
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --surface: #ffffff;
+    --surface2: #f0f2f8;
+    --border: #e2e6f0;
+    --border-focus: #4f7aff;
+    --accent: #4f7aff;
+    --accent-light: #eef2ff;
+    --accent2: #ff5c5c;
+    --accent2-light: #fff0f0;
+    --accent3: #f5a623;
+    --accent3-light: #fff8ed;
+    --accent4: #00c48c;
+    --accent4-light: #e6faf5;
+    --text-primary: #1a1f36;
+    --text-secondary: #6b7399;
+    --text-dim: #adb5cc;
+    --shadow-sm: 0 1px 4px rgba(26,31,54,0.06), 0 4px 16px rgba(26,31,54,0.04);
+    --shadow-md: 0 4px 12px rgba(26,31,54,0.08), 0 12px 32px rgba(26,31,54,0.06);
+    --radius: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 300px;
+    background: linear-gradient(135deg, #eef2ff 0%, #f4f6fb 55%, #fef9f0 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 44px 36px 60px;
+  }
+
+  /* ─── Header ─── */
+  .header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .company-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .header-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    letter-spacing: -0.2px;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    color: var(--text-primary);
+    line-height: 1.1;
+  }
+
+  h1 em { font-style: normal; color: var(--accent); }
+
+  .header-right { display: flex; align-items: center; gap: 10px; }
+
+  .year-badge {
+    font-family: 'Fira Code', monospace;
+    font-size: 12px; font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 14px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .add-btn {
+    display: flex; align-items: center; gap: 7px;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 10px;
+    padding: 9px 18px;
+    font-size: 13px; font-weight: 700;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(79,122,255,0.28);
+    transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  }
+  .add-btn:hover { background: #3d68f0; box-shadow: 0 6px 18px rgba(79,122,255,0.36); transform: translateY(-1px); }
+  .add-btn:active { transform: translateY(0); }
+  .add-btn svg { width: 15px; height: 15px; }
+
+  .export-btn {
+    display: flex; align-items: center; gap: 7px;
+    background: var(--surface); color: var(--accent4);
+    border: 1.5px solid var(--accent4); border-radius: 10px;
+    padding: 9px 18px;
+    font-size: 13px; font-weight: 700;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.15s;
+  }
+  .export-btn:hover { background: var(--accent4-light); transform: translateY(-1px); }
+  .export-btn svg { width: 15px; height: 15px; }
+
+  .drive-setup-btn {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--surface); color: var(--text-secondary);
+    border: 1.5px solid var(--border); border-radius: 10px;
+    padding: 9px 16px;
+    font-size: 13px; font-weight: 700;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    cursor: pointer; position: relative;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.15s;
+  }
+  .drive-setup-btn:hover { border-color: var(--accent4); color: var(--accent4); background: var(--accent4-light); }
+  .drive-setup-btn svg { width: 15px; height: 15px; }
+
+  .drive-status-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--text-dim); flex-shrink: 0;
+    transition: background 0.3s;
+  }
+  .drive-status-dot.connected { background: var(--accent4); box-shadow: 0 0 0 2px rgba(0,196,140,0.25); }
+  .drive-status-dot.saving    { background: var(--accent3); animation: pulse 1s infinite; }
+  .drive-status-dot.error     { background: var(--accent2); }
+
+  /* ─── Sync bar ─── */
+  .sync-bar {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+    font-size: 11px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.05s forwards;
+  }
+
+  .sync-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; transition: background 0.3s; }
+  .sync-dot.connected  { background: var(--accent4); box-shadow: 0 0 0 3px rgba(0,196,140,0.2); }
+  .sync-dot.saving     { background: var(--accent3); box-shadow: 0 0 0 3px rgba(245,166,35,0.2); animation: pulse 1s infinite; }
+  .sync-dot.error      { background: var(--accent2); box-shadow: 0 0 0 3px rgba(255,92,92,0.2); }
+  .sync-dot.loading    { background: var(--text-dim); animation: pulse 1s infinite; }
+  .sync-dot.disconnected { background: var(--text-dim); }
+
+  .sync-text { color: var(--text-secondary); font-family: 'Fira Code', monospace; flex: 1; }
+  .sync-text strong { color: var(--text-primary); }
+  .sync-actions { display: flex; gap: 8px; margin-left: auto; }
+
+  .sync-btn {
+    display: flex; align-items: center; gap: 5px;
+    padding: 5px 12px; border-radius: 7px;
+    font-size: 11px; font-weight: 700;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    cursor: pointer; transition: all 0.15s; border: 1.5px solid;
+  }
+  .sync-btn.load  { background: var(--accent-light); color: var(--accent); border-color: rgba(79,122,255,0.3); }
+  .sync-btn.load:hover  { background: #dde6ff; }
+  .sync-btn.save  { background: var(--accent4-light); color: var(--accent4); border-color: rgba(0,196,140,0.3); }
+  .sync-btn.save:hover  { background: #cdf5ea; }
+
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  /* ─── KPI Cards ─── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.08s forwards;
+  }
+
+  .kpi-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .kpi-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+  .kpi-icon {
+    position: absolute; top: 18px; right: 20px;
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .kpi-card.plan   .kpi-icon { background: var(--accent-light); }
+  .kpi-card.actual .kpi-icon { background: var(--accent4-light); }
+  .kpi-card.rate   .kpi-icon { background: var(--accent3-light); }
+  .kpi-card.grade  .kpi-icon { background: var(--accent2-light); }
+
+  .kpi-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    color: var(--text-secondary); margin-bottom: 10px;
+    font-family: 'Fira Code', monospace;
+  }
+  .kpi-value {
+    font-size: 26px; font-weight: 900; letter-spacing: -0.5px;
+    color: var(--text-primary); font-family: 'Fira Code', monospace; line-height: 1;
+  }
+  .kpi-value small { font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-left: 3px; }
+  .kpi-sub { font-size: 11px; color: var(--text-dim); margin-top: 6px; }
+  .kpi-sub em { color: var(--accent4); font-style: normal; font-weight: 700; }
+
+  /* ─── Section ─── */
+  .section-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 26px 28px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+  .section-title {
+    font-size: 11px; font-weight: 600; letter-spacing: 2.5px;
+    color: var(--text-secondary);
+    font-family: 'Fira Code', monospace;
+  }
+
+  /* ─── KPI 평가 테이블 ─── */
+  .eval-section { margin-bottom: 24px; opacity: 0; animation: fadeUp 0.5s ease 0.12s forwards; }
+
+  .eval-group-cell { font-weight: 700; white-space: nowrap; vertical-align: top; }
+  .eval-group-sub { font-size: 11px; color: var(--text-dim); font-weight: 500; margin-top: 3px; }
+  .eval-weight {
+    display: inline-block; margin-top: 7px;
+    font-family: 'Fira Code', monospace; font-size: 10px; font-weight: 700;
+    color: var(--accent); background: var(--accent-light);
+    border-radius: 99px; padding: 2px 9px;
+  }
+
+  td.band-cell {
+    text-align: center; font-family: 'Fira Code', monospace;
+    font-size: 11px; color: var(--text-secondary); white-space: nowrap;
+  }
+  td.band-cell.active { font-weight: 700; }
+  td.band-cell.active.gS { background: var(--accent4-light); color: #008f67; }
+  td.band-cell.active.gA { background: var(--accent-light);  color: #2b5ce6; }
+  td.band-cell.active.gB { background: var(--accent3-light); color: #c47e0a; }
+  td.band-cell.active.gC { background: var(--accent2-light); color: #cc3333; }
+
+  .grade-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 9px;
+    font-family: 'Fira Code', monospace; font-weight: 900; font-size: 14px;
+  }
+  .grade-badge.gS { background: var(--accent4-light); color: #008f67; }
+  .grade-badge.gA { background: var(--accent-light);  color: #2b5ce6; }
+  .grade-badge.gB { background: var(--accent3-light); color: #c47e0a; }
+  .grade-badge.gC { background: var(--accent2-light); color: #cc3333; }
+
+  .kpi-result-input {
+    width: 92px; padding: 6px 9px;
+    border: 1.5px solid var(--border); border-radius: 7px;
+    background: var(--surface2);
+    font-family: 'Fira Code', monospace; font-size: 12px; font-weight: 700;
+    color: var(--text-primary); text-align: right;
+    outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .kpi-result-input:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(79,122,255,0.12);
+    background: var(--surface);
+  }
+
+  .auto-chip {
+    display: inline-block; font-size: 9px; font-weight: 700;
+    font-family: 'Fira Code', monospace;
+    color: var(--accent4); background: var(--accent4-light);
+    border-radius: 5px; padding: 2px 6px; margin-top: 4px;
+  }
+  .auto-chip.clickable { cursor: pointer; color: var(--accent); background: var(--accent-light); }
+  .auto-chip.clickable:hover { background: #dde6ff; }
+
+  /* ─── KPI 클릭 → 건별 실적 팝업 ─── */
+  .kpi-link {
+    cursor: pointer;
+    border-bottom: 1px dashed rgba(79,122,255,0.5);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .kpi-link:hover { color: var(--accent); border-color: var(--accent); }
+  .kpi-link::after { content: ' ✎'; font-size: 10px; color: var(--accent); }
+
+  .klog-add {
+    display: grid; grid-template-columns: 150px 1fr auto;
+    gap: 8px; align-items: center;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px;
+  }
+  .klog-add .full { grid-column: 1 / -1; }
+  .klog-add .btn-save { padding: 10px 18px; white-space: nowrap; }
+
+  .klog-count {
+    font-size: 11px; color: var(--text-secondary);
+    font-family: 'Fira Code', monospace;
+    margin: 14px 2px 8px;
+  }
+  .klog-count em { color: var(--accent); font-style: normal; font-weight: 700; }
+
+  .klog-list { display: flex; flex-direction: column; gap: 8px; max-height: 300px; overflow-y: auto; }
+  .klog-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px; background: var(--surface2);
+    border-radius: 10px; border: 1px solid transparent;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .klog-item:hover { border-color: var(--border); background: #fff; }
+  .klog-date { font-family: 'Fira Code', monospace; font-size: 11px; color: var(--text-secondary); white-space: nowrap; }
+  .klog-title { font-size: 13px; font-weight: 600; }
+  .klog-note { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+  .klog-empty { text-align: center; padding: 26px 10px; color: var(--text-dim); font-size: 12px; }
+
+  @media (max-width: 640px) {
+    .klog-add { grid-template-columns: 1fr; }
+  }
+
+  /* ─── 정량 환산 현황 테이블 ─── */
+  .score-section {
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.16s forwards;
+  }
+
+  .table-wrap {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+  thead th {
+    background: var(--surface2);
+    padding: 13px 16px;
+    text-align: left;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.8px;
+    color: var(--text-secondary);
+    font-family: 'Fira Code', monospace;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+  }
+  thead th.right { text-align: right; }
+  thead th.center { text-align: center; }
+
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #fafbff; }
+  tbody td { padding: 13px 16px; color: var(--text-primary); vertical-align: middle; }
+
+  .cat-cell { display: flex; align-items: center; gap: 8px; font-weight: 700; white-space: nowrap; }
+  .cat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .detail-cell { font-size: 12.5px; }
+  .detail-sub { font-size: 11px; color: var(--text-dim); margin-top: 3px; }
+
+  .num-cell {
+    text-align: right; font-family: 'Fira Code', monospace;
+    font-weight: 600; font-size: 13px; white-space: nowrap;
+  }
+  .num-cell.dim { color: var(--text-secondary); font-weight: 500; }
+  .num-cell.big { font-weight: 700; }
+  .num-cell .unit { font-size: 10px; color: var(--text-dim); margin-left: 2px; font-weight: 500; }
+
+  .progress-cell { min-width: 130px; }
+  .progress-track { height: 7px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
+  .progress-fill {
+    height: 100%; border-radius: 99px; width: 0;
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .progress-label {
+    font-size: 10px; font-family: 'Fira Code', monospace;
+    color: var(--text-secondary); margin-top: 4px; font-weight: 600;
+  }
+
+  tfoot .total-row td {
+    background: var(--surface2);
+    font-weight: 700;
+    border-top: 2px solid var(--border);
+    padding: 14px 16px;
+  }
+  tfoot .total-row .num-cell { font-size: 14px; }
+
+  /* ─── 이력 섹션 ─── */
+  .log-section { opacity: 0; animation: fadeUp 0.5s ease 0.24s forwards; }
+
+  .table-header-row {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px; gap: 12px; flex-wrap: wrap;
+  }
+
+  .log-filters { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+  .filter-select {
+    padding: 7px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text-primary);
+    font-size: 12px; font-weight: 600;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    outline: none; cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.15s;
+  }
+  .filter-select:focus { border-color: var(--border-focus); }
+
+  .date-input {
+    padding: 7px 10px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text-primary);
+    font-size: 12px;
+    font-family: 'Fira Code', monospace;
+    outline: none; cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .date-input:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(79,122,255,0.12); }
+  .date-sep { color: var(--text-dim); font-size: 13px; font-family: 'Fira Code', monospace; }
+
+  .filter-reset {
+    padding: 7px 12px; border-radius: 8px;
+    border: 1.5px solid var(--border); background: transparent;
+    color: var(--text-secondary); font-size: 11px; font-weight: 600;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .filter-reset:hover { background: var(--surface2); }
+
+  .log-count-badge {
+    font-size: 11px; color: var(--text-secondary);
+    font-family: 'Fira Code', monospace;
+    background: var(--surface2);
+    padding: 5px 12px; border-radius: 99px;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .log-count-badge em { color: var(--accent); font-style: normal; font-weight: 700; }
+
+  .tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.3px;
+    padding: 4px 10px; border-radius: 99px;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    white-space: nowrap;
+  }
+  .tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+  .date-cell { font-family: 'Fira Code', monospace; font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
+  .title-cell { font-weight: 600; font-size: 13px; }
+  .note-sub { font-size: 11px; color: var(--text-dim); margin-top: 3px; }
+
+  .action-cell { text-align: center; white-space: nowrap; }
+  .btn-edit, .btn-delete {
+    width: 28px; height: 28px;
+    border-radius: 7px; border: 1px solid var(--border);
+    background: var(--surface); cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: all 0.15s; margin: 0 2px;
+  }
+  .btn-edit:hover   { background: var(--accent-light); border-color: var(--accent); }
+  .btn-delete:hover { background: var(--accent2-light); border-color: var(--accent2); }
+  .btn-edit svg, .btn-delete svg { width: 13px; height: 13px; pointer-events: none; }
+
+  .empty-row td {
+    text-align: center; color: var(--text-dim);
+    font-size: 12px; padding: 34px 16px !important;
+  }
+
+  /* ─── Modal ─── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(26,31,54,0.22);
+    backdrop-filter: blur(5px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none !important;
+    transition: opacity 0.2s;
+    visibility: hidden;
+  }
+  .modal-overlay.open {
+    opacity: 1 !important; pointer-events: all !important;
+    visibility: visible !important; display: flex !important;
+  }
+
+  .modal {
+    background: var(--surface);
+    border-radius: 20px;
+    box-shadow: 0 24px 64px rgba(26,31,54,0.18);
+    width: 100%; max-width: 560px;
+    padding: 36px;
+    border: 1px solid var(--border);
+    transform: scale(0.95) translateY(16px);
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+  .modal-overlay.open .modal { transform: scale(1) translateY(0); }
+
+  .modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 26px;
+  }
+  .modal-title { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
+
+  .modal-close {
+    width: 32px; height: 32px;
+    border-radius: 8px; border: 1px solid var(--border);
+    background: var(--surface2); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .modal-close:hover { background: var(--accent2-light); }
+  .modal-close svg { width: 14px; height: 14px; }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 7px; }
+  .form-group.full { grid-column: 1 / -1; }
+
+  .form-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    color: var(--text-secondary); font-family: 'Fira Code', monospace;
+  }
+
+  .form-input, .form-select, .form-textarea {
+    padding: 10px 13px;
+    border: 1.5px solid var(--border);
+    border-radius: 9px;
+    background: var(--surface);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(79,122,255,0.12);
+  }
+  .form-input::placeholder { color: var(--text-dim); }
+
+  .point-preview {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--accent-light);
+    border: 1px solid rgba(79,122,255,0.25);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 12px; color: var(--text-secondary);
+  }
+  .point-preview strong {
+    font-family: 'Fira Code', monospace;
+    font-size: 16px; color: var(--accent); font-weight: 700;
+  }
+
+  .modal-footer {
+    display: flex; justify-content: flex-end; gap: 10px;
+    margin-top: 26px; padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+
+  .btn-cancel {
+    padding: 10px 22px; border-radius: 9px;
+    border: 1.5px solid var(--border); background: var(--surface2);
+    color: var(--text-secondary); font-size: 13px; font-weight: 600;
+    font-family: 'Pretendard', -apple-system, sans-serif; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-cancel:hover { background: var(--border); }
+
+  .btn-save {
+    padding: 10px 26px; border-radius: 9px;
+    border: none; background: var(--accent); color: #fff;
+    font-size: 13px; font-weight: 700;
+    font-family: 'Pretendard', -apple-system, sans-serif; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(79,122,255,0.28);
+    transition: all 0.15s;
+  }
+  .btn-save:hover { background: #3d68f0; }
+
+  /* ─── Confirm ─── */
+  .confirm-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(26,31,54,0.22);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.15s;
+  }
+  .confirm-overlay.open { opacity: 1; pointer-events: all; }
+
+  .confirm-box {
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: 0 16px 48px rgba(26,31,54,0.16);
+    padding: 28px 32px;
+    width: 320px;
+    border: 1px solid var(--border);
+    text-align: center;
+    transform: scale(0.95);
+    transition: transform 0.15s;
+  }
+  .confirm-overlay.open .confirm-box { transform: scale(1); }
+
+  .confirm-icon { font-size: 32px; margin-bottom: 12px; }
+  .confirm-msg { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .confirm-sub { font-size: 12px; color: var(--text-secondary); margin-bottom: 22px; }
+  .confirm-btns { display: flex; gap: 10px; justify-content: center; }
+
+  .confirm-no {
+    flex: 1; padding: 9px; border-radius: 9px;
+    border: 1.5px solid var(--border); background: var(--surface2);
+    color: var(--text-secondary); font-size: 13px; font-weight: 600;
+    font-family: 'Pretendard', -apple-system, sans-serif; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .confirm-no:hover { background: var(--border); }
+
+  .confirm-yes {
+    flex: 1; padding: 9px; border-radius: 9px;
+    border: none; background: var(--accent2); color: #fff;
+    font-size: 13px; font-weight: 700;
+    font-family: 'Pretendard', -apple-system, sans-serif; cursor: pointer;
+    box-shadow: 0 3px 12px rgba(255,92,92,0.28);
+    transition: all 0.15s;
+  }
+  .confirm-yes:hover { background: #e04444; }
+
+  /* ─── Setup modal ─── */
+  .setup-modal-desc {
+    font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+    background: var(--surface2); border-radius: 10px; padding: 14px 16px;
+    border: 1px solid var(--border);
+    margin-bottom: 18px;
+  }
+  .setup-step {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .setup-step:last-child { border-bottom: none; }
+  .setup-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .setup-step-text { font-size: 13px; line-height: 1.6; }
+  .setup-step-text code {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 4px; padding: 1px 6px; font-size: 11px;
+    font-family: 'Fira Code', monospace; color: var(--accent);
+  }
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px; font-weight: 600; color: var(--accent);
+    background: var(--accent-light); border: 1px solid rgba(79,122,255,0.25);
+    border-radius: 5px; padding: 2px 8px; cursor: pointer;
+    font-family: 'Pretendard', sans-serif; transition: all 0.15s;
+    margin-left: 4px;
+  }
+  .copy-btn:hover { background: #dde6ff; }
+
+  /* ─── Footer ─── */
+  .footer {
+    margin-top: 48px; text-align: center;
+    font-size: 11px; color: var(--text-dim);
+    font-family: 'Fira Code', monospace;
+    opacity: 0; animation: fadeUp 0.5s ease 0.32s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes rowIn {
+    from { opacity: 0; background: var(--accent-light); }
+    to   { opacity: 1; background: transparent; }
+  }
+  tr.new-row { animation: rowIn 0.6s ease forwards; }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 960px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .header { flex-wrap: wrap; gap: 14px; }
+    .header-right { width: 100%; justify-content: flex-end; flex-wrap: wrap; }
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 14px 12px 40px; }
+    body::before { height: 160px; }
+    .header { margin-bottom: 16px; flex-direction: column; align-items: flex-start; gap: 10px; }
+    h1 { font-size: 22px; letter-spacing: -1px; }
+    .header-desc { font-size: 11px; }
+    .year-badge { display: none; }
+    .export-btn, .drive-setup-btn { flex: 1; min-width: 120px; justify-content: center; padding: 9px 10px; font-size: 11px; }
+    .add-btn { width: 100%; justify-content: center; padding: 10px 12px; font-size: 12px; }
+    .sync-bar { flex-wrap: wrap; gap: 7px; padding: 9px 12px; }
+    .sync-text { font-size: 10px; flex: 1; min-width: 140px; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .kpi-card { padding: 14px; }
+    .kpi-value { font-size: 18px; }
+    .kpi-label { font-size: 9px; margin-bottom: 6px; }
+    .kpi-icon { width: 28px; height: 28px; font-size: 14px; top: 12px; right: 12px; }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { min-width: 720px; font-size: 11px; }
+    thead th { padding: 9px 10px; font-size: 8px; }
+    tbody td { padding: 9px 10px; }
+    .modal-overlay { align-items: flex-end; }
+    .modal {
+      padding: 20px 16px 24px; border-radius: 18px 18px 0 0;
+      max-width: 100%;
+    }
+    .form-grid { grid-template-columns: 1fr; gap: 11px; }
+    .form-group.full { grid-column: 1; }
+    .modal-footer { padding-top: 14px; }
+    .btn-cancel, .btn-save { flex: 1; padding: 11px; }
+    .footer { font-size: 10px; margin-top: 28px; }
+  }
+</style>
+<!-- SheetJS for Excel export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <div class="company-label">(주)소프트힐스</div>
+      <h1>마케팅 <em>KPI 성과 지표</em></h1>
+      <p class="header-desc">마케팅 인프라 정량 환산 점수 산출 · 실적 관리</p>
+    </div>
+    <div class="header-right">
+      <div class="year-badge">FY 2026</div>
+      <button class="export-btn" onclick="exportExcel()">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        엑셀 다운로드
+      </button>
+      <button class="drive-setup-btn" onclick="openSetupModal()" title="Google Drive 연동 설정">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 2.5C8 2.5 5 5 5 8.5a3 3 0 006 0C11 5 8 2.5 8 2.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 11l2.5-2M13 11l-2.5-2M8 13.5V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Drive 연동
+        <span class="drive-status-dot" id="driveStatusDot"></span>
+      </button>
+      <button class="add-btn" onclick="openModal()">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="white" stroke-width="2.2" stroke-linecap="round"/></svg>
+        실적 등록
+      </button>
+    </div>
+  </div>
+
+  <!-- Drive Sync Strip -->
+  <div class="sync-bar">
+    <div class="sync-dot disconnected" id="syncDot"></div>
+    <div class="sync-text" id="syncText">로컬 저장 모드 — Drive 연동을 설정하면 클라우드에 저장됩니다</div>
+    <div class="sync-actions">
+      <button class="sync-btn load" onclick="loadFromDrive()" id="btnLoad">⬇ 불러오기</button>
+      <button class="sync-btn save" onclick="saveToDrive()"   id="btnSave">☁ 저장</button>
+    </div>
+  </div>
+
+  <!-- KPI 평가 항목 · 평가 기준 및 등급 -->
+  <div class="eval-section">
+    <div class="table-header-row">
+      <div class="section-title">KPI 평가 항목 · 평가 기준 및 등급</div>
+      <div class="log-count-badge">등급 기준: C 90% · B 95% · A 100% · S 105%</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>평가항목</th>
+            <th>KPI</th>
+            <th class="right">My Plan</th>
+            <th class="right">실적</th>
+            <th class="center">C (90%)</th>
+            <th class="center">B (95%)</th>
+            <th class="center">A (100%)</th>
+            <th class="center">S (105%)</th>
+            <th class="center">등급</th>
+          </tr>
+        </thead>
+        <tbody id="evalTableBody"></tbody>
+        <tfoot>
+          <tr class="total-row">
+            <td colspan="7">가중 종합 달성률 (비중 반영)</td>
+            <td class="num-cell" id="evalTotPct">—</td>
+            <td style="text-align:center" id="evalTotGrade">—</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- 정량 환산 점수 현황 -->
+  <div class="score-section">
+    <div class="table-header-row">
+      <div class="section-title">마케팅 인프라 정량 환산 점수 현황</div>
+      <div class="log-count-badge">산식: 컨텐츠별 공수 점수 × 진행 횟수</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>상세</th>
+            <th class="right">점수</th>
+            <th class="right">목표 횟수</th>
+            <th class="right">실적 횟수</th>
+            <th class="right">예상 점수</th>
+            <th class="right">달성 점수</th>
+            <th>달성률</th>
+          </tr>
+        </thead>
+        <tbody id="scoreTableBody"></tbody>
+        <tfoot>
+          <tr class="total-row">
+            <td colspan="4">예상 점수 합계</td>
+            <td class="num-cell" id="totActualCount">—</td>
+            <td class="num-cell" id="totPlan">—</td>
+            <td class="num-cell" id="totActual">—</td>
+            <td id="totRate" style="font-family:'Fira Code',monospace;font-weight:700">—</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- 실적 이력 -->
+  <div class="log-section">
+    <div class="table-header-row">
+      <div class="section-title">실적 등록 이력</div>
+      <div class="log-filters">
+        <select class="filter-select" id="filterCat" onchange="renderLog()">
+          <option value="">전체 구분</option>
+        </select>
+        <input class="date-input" type="date" id="filterFrom" onchange="renderLog()">
+        <span class="date-sep">~</span>
+        <input class="date-input" type="date" id="filterTo" onchange="renderLog()">
+        <button class="filter-reset" onclick="resetFilters()">초기화</button>
+        <div class="log-count-badge">표시 <em id="logCount">0</em>건</div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>날짜</th>
+            <th>구분</th>
+            <th>내용</th>
+            <th class="right">횟수</th>
+            <th class="right">환산 점수</th>
+            <th class="center">관리</th>
+          </tr>
+        </thead>
+        <tbody id="logTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">© 2026 SOFTHILLS · MARKETING KPI DASHBOARD</div>
+</div>
+
+<!-- 실적 등록/수정 Modal -->
+<div class="modal-overlay" id="entryModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="entryModalTitle">실적 등록</div>
+      <button class="modal-close" onclick="closeModal()">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="#6b7399" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label">날짜</label>
+        <input class="form-input" type="date" id="fDate">
+      </div>
+      <div class="form-group">
+        <label class="form-label">횟수 (회/건/편)</label>
+        <input class="form-input" type="number" id="fCount" min="1" value="1" oninput="updatePointPreview()">
+      </div>
+      <div class="form-group full">
+        <label class="form-label">구분 (상세 항목)</label>
+        <select class="form-select" id="fCat" onchange="updatePointPreview()"></select>
+      </div>
+      <div class="form-group full">
+        <label class="form-label">내용</label>
+        <input class="form-input" type="text" id="fTitle" placeholder="예: 링크드인 신제품 소개 피드 게시">
+      </div>
+      <div class="form-group full">
+        <label class="form-label">비고 (선택)</label>
+        <input class="form-input" type="text" id="fNote" placeholder="추가 메모">
+      </div>
+      <div class="form-group full">
+        <div class="point-preview">
+          <span id="previewFormula">—</span>
+          <strong id="previewPoint">0P</strong>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">취소</button>
+      <button class="btn-save" onclick="saveEntry()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- KPI 건별 실적 관리 Modal -->
+<div class="modal-overlay" id="kpiLogModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="kpiLogTitle">KPI 실적 관리</div>
+      <button class="modal-close" onclick="closeKpiLog()">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="#6b7399" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="klog-add">
+      <input class="form-input" type="date" id="klDate">
+      <input class="form-input" type="text" id="klTitle" placeholder="제목 (예: 홈페이지 견적 문의 — ○○건설)">
+      <button class="btn-save" onclick="addKpiLogEntry()">+ 추가</button>
+      <input class="form-input full" type="text" id="klNote" placeholder="내용 (선택)">
+    </div>
+    <div class="klog-count" id="klogCount"></div>
+    <div class="klog-list" id="klogList"></div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeKpiLog()">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 삭제 확인 -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-icon">🗑</div>
+    <div class="confirm-msg">이 실적을 삭제할까요?</div>
+    <div class="confirm-sub" id="confirmSub">삭제 후에는 되돌릴 수 없습니다.</div>
+    <div class="confirm-btns">
+      <button class="confirm-no" onclick="closeConfirm()">취소</button>
+      <button class="confirm-yes" onclick="confirmDelete()">삭제</button>
+    </div>
+  </div>
+</div>
+
+<!-- Drive Setup Modal -->
+<div class="modal-overlay" id="setupModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">⚙ Google Drive 연동 설정</div>
+      <button class="modal-close" onclick="closeSetupModal()">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="#6b7399" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="setup-modal-desc">
+      Google Apps Script를 배포하면 이 대시보드의 데이터가 지정된 Drive 폴더
+      (<code style="font-family:'Fira Code',monospace;font-size:11px">마케팅 KPI</code>)의
+      스프레드시트에 자동 저장됩니다.
+    </div>
+    <div class="setup-step">
+      <div class="setup-num">1</div>
+      <div class="setup-step-text">
+        <a href="https://script.google.com" target="_blank" style="color:var(--accent)">script.google.com</a>에서 새 프로젝트 생성 후 아래 코드 붙여넣기
+        <button class="copy-btn" onclick="copyGasCode()">📋 코드 복사</button>
+      </div>
+    </div>
+    <div class="setup-step">
+      <div class="setup-num">2</div>
+      <div class="setup-step-text">배포 → 새 배포 → 웹 앱 · 액세스 권한 <code>모든 사용자</code>로 배포</div>
+    </div>
+    <div class="setup-step">
+      <div class="setup-num">3</div>
+      <div class="setup-step-text">발급된 웹 앱 URL을 아래에 붙여넣고 저장</div>
+    </div>
+    <div class="form-group" style="margin-top:16px">
+      <label class="form-label">APPS SCRIPT 웹 앱 URL</label>
+      <input class="form-input" type="text" id="fScriptUrl" placeholder="https://script.google.com/macros/s/.../exec">
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeSetupModal()">취소</button>
+      <button class="btn-save" onclick="saveScriptUrl()">저장 및 연결 테스트</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════
+   마케팅 인프라 정량 환산 기준 (컨텐츠별 공수 점수 × 진행 횟수)
+═══════════════════════════════════════════════ */
+const CATS = [
+  { key: 'homepage',    group: '홈페이지 운영 관리 전반',      detail: '홈페이지 유지보수 / 컨텐츠 작성',                point: 50, target: 2,  unit: '건', note: '국문, 영문 홈페이지 관련',                                             color: '#4f7aff' },
+  { key: 'sns',         group: 'SNS 미디어 채널 관리 전반',    detail: '1개 컨텐츠 작성 (인스타그램, 링크드인)',          point: 5,  target: 60, unit: '회', note: '인스타그램, 링크드인 피드 컨텐츠 작성',                                 color: '#00c48c' },
+  { key: 'blog',        group: '블로그 포스팅 및 뉴스레터',    detail: '1개 컨텐츠 작성',                                point: 5,  target: 60, unit: '건', note: '포스팅 1건 당 점수 환산',                                              color: '#f5a623' },
+  { key: 'video-brand', group: '영상 콘텐츠 기획 및 제작 전반', detail: '브랜드 소개 영상 / 솔루션 소개 영상',            point: 20, target: 5,  unit: '편', note: '소프트힐스 소개 1편 / VIZDesign, VIZZARDX, VIZWing, VIZWide3D 4편 예상', color: '#ff5c5c' },
+  { key: 'video-func',  group: '영상 콘텐츠 기획 및 제작 전반', detail: '솔루션 기능 소개 영상',                          point: 5,  target: 40, unit: '회', note: '각 솔루션 세부 기능별 편집 및 유튜브 업로드 진행',                       color: '#ff8fab' },
+  { key: 'expo',        group: '전시회 운영',                  detail: '각종 전시회 및 컨퍼런스 기획, 준비',              point: 50, target: 3,  unit: '회', note: '송년회, VIP 세미나, 빌딩스마트협회 컨퍼런스(10월), 부산지사 개소식',     color: '#9b6dff' },
+  { key: 'brochure',    group: '각종 소개서 작성',              detail: '회사소개서, 제품소개서 등',                      point: 30, target: 10, unit: '건', note: '15page 이상의 소개서',                                                  color: '#00b8d9' },
+  { key: 'etc',         group: '기타',                         detail: '간단한 인쇄물, 판촉물, 경영지원(표찰, 명함) 등',  point: 5,  target: 10, unit: '건', note: '영업 및 마케팅 관련 디자인 업무 수행',                                  color: '#adb5cc' },
+];
+
+const EVAL_TARGET = 1400;  // 평가 기준: 정량환산 1,400점 이상
+const DRIVE_FOLDER_ID = '17A7jECSzMRjteMehW1XiIm6VrzWnHEIl';
+
+/* ═══════════════════════════════════════════════
+   KPI 평가 항목 · 평가 기준 및 등급 (C 90% / B 95% / A 100% / S 105%)
+   mins: [B 최소값, A 최소값, S 최소값] — 미만이면 C
+═══════════════════════════════════════════════ */
+const EVAL_ITEMS = [
+  { key: 'lead',      group: '1. 고객 문의 확대',    groupSub: '리드 확보',        gw: '10%', span: 1,
+    kpi: '홈페이지/온라인 광고를 통한 문의 (건수)', weight: 10, plan: 10, unit: '건',
+    bands: ['0~4', '5~9', '10~14', '15 이상'], mins: [5, 10, 15], log: true,
+    reason: '전시회/컨퍼런스 금년도 계획 미비<br>주로 온라인 광고를 통해서만 마케팅 인입 발생 (고관여 솔루션)', reasonSpan: 1 },
+  { key: 'pageviews', group: '2. 마케팅 인프라 구축', groupSub: '컨텐츠 확대',      gw: '70%', span: 2,
+    kpi: '홈페이지 활성화 (연 조회 수) (20%)', weight: 20, plan: 113146, unit: '회',
+    bands: ['101,831~107,487', '107,488~113,145', '113,146~118,803', '118,804 이상'], mins: [107488, 113146, 118804], manual: true,
+    reason: '홈페이지 조회 기준 재정립', reasonSpan: 1 },
+  { key: 'infra',
+    kpi: '마케팅 인프라 (점수) (50%)', weight: 50, plan: 1400, unit: 'P',
+    bands: ['1,260~1,329', '1,330~1,399', '1,400~1,469', '1,470 이상'], mins: [1330, 1400, 1470], manual: false,
+    reason: '중심 업무 위주 재정립<br>대외 행사 미 개최 시 고려', reasonSpan: 1 },
+  { key: 'expo',      group: '3. 자기개발',          groupSub: '적응 및 개인 성취', gw: '10%', span: 2,
+    kpi: '산업별/솔루션별 전시회, 컨퍼런스 참관 (건수) (5%)', weight: 5, plan: 6, unit: '건',
+    bands: ['0~2', '3~5', '6~8', '9 이상'], mins: [3, 6, 9], log: true,
+    reason: '전시회, 컨퍼런스 참관 및 보고 역할 증대', reasonSpan: 2 },
+  { key: 'cert',
+    kpi: '마케팅 관련 민간/공인 자격증 취득 (건수) (5%)', weight: 5, plan: 2, unit: '건',
+    bands: ['0', '1', '2', '3 이상'], mins: [1, 2, 3], log: true },
+  { key: 'event',     group: '4. 조직기여',          groupSub: '조직 발전 기여',    gw: '10%', span: 2,
+    kpi: '사내 행사 기획 및 지원 (건수) (5%)', weight: 5, plan: 2, unit: '건',
+    bands: ['0', '1', '2', '3 이상'], mins: [1, 2, 3], log: true,
+    reason: '송년회, VIP 초청 세미나, 부산지사 개소식 외 없음', reasonSpan: 2 },
+  { key: 'process',
+    kpi: '마케팅 업무 프로세스 개선 안 마련 (완료) (5%)', weight: 5, plan: 2, unit: '건',
+    bands: ['0', '1', '2', '3 이상'], mins: [1, 2, 3], log: true },
+];
+
+const GRADE_LETTERS = ['C', 'B', 'A', 'S'];
+const GRADE_PCTS    = [90, 95, 100, 105];
+
+const ENTRIES_KEY     = 'sh_kpi_entries';
+const SCRIPT_KEY      = 'sh_kpi_script_url';
+const KPI_RESULTS_KEY = 'sh_kpi_results';
+const KPI_LOGS_KEY    = 'sh_kpi_logs';
+
+/* ─── 상태 ─── */
+let entries = loadLocal();
+let nextId = entries.length ? Math.max(...entries.map(e => Number(e.id) || 0)) + 1 : 1;
+let editingId = null;
+let deleteTargetId = null;
+let SCRIPT_URL = localStorage.getItem(SCRIPT_KEY) || '';
+let isSyncing = false;
+
+function loadLocal() {
+  try { return JSON.parse(localStorage.getItem(ENTRIES_KEY) || '[]'); } catch { return []; }
+}
+function saveLocal() {
+  try { localStorage.setItem(ENTRIES_KEY, JSON.stringify(entries)); } catch {}
+}
+
+let kpiResults = loadKpiResults();
+function loadKpiResults() {
+  try { return JSON.parse(localStorage.getItem(KPI_RESULTS_KEY) || '{}'); } catch { return {}; }
+}
+function saveKpiResults() {
+  try { localStorage.setItem(KPI_RESULTS_KEY, JSON.stringify(kpiResults)); } catch {}
+}
+
+/* KPI 건별 실적 로그: { lead: [{id,date,title,note}], expo: [...], ... } */
+let kpiLogs = loadKpiLogs();
+function loadKpiLogs() {
+  try { return JSON.parse(localStorage.getItem(KPI_LOGS_KEY) || '{}'); } catch { return {}; }
+}
+function saveKpiLogs() {
+  try { localStorage.setItem(KPI_LOGS_KEY, JSON.stringify(kpiLogs)); } catch {}
+}
+
+/* ─── 유틸 ─── */
+const catByKey = k => CATS.find(c => c.key === k);
+const fmt = n => n.toLocaleString('ko-KR');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+/* ─── 등급 판정 ─── */
+function gradeIdx(val, mins) {
+  if (val >= mins[2]) return 3; // S
+  if (val >= mins[1]) return 2; // A
+  if (val >= mins[0]) return 1; // B
+  return 0;                     // C
+}
+
+function infraActualPoint() {
+  return catStats().reduce((s, c) => s + c.actualPoint, 0);
+}
+
+function evalValue(item) {
+  if (item.key === 'infra') return infraActualPoint();
+  if (item.log) return (kpiLogs[item.key] || []).length;
+  return Number(kpiResults[item.key]) || 0;
+}
+
+function evalSummary() {
+  let weighted = 0;
+  const rows = EVAL_ITEMS.map(item => {
+    const val = evalValue(item);
+    const idx = gradeIdx(val, item.mins);
+    weighted += item.weight * GRADE_PCTS[idx];
+    return { item, val, idx };
+  });
+  const totPct = Math.round(weighted / EVAL_ITEMS.reduce((s, i) => s + i.weight, 0) * 10) / 10;
+  const g = totPct >= 105 ? 'S' : totPct >= 100 ? 'A' : totPct >= 95 ? 'B' : 'C';
+  return { rows, totPct, grade: g };
+}
+
+/* ─── 렌더링 ─── */
+function render() {
+  renderScoreTable();
+  renderEval();
+  renderLog();
+}
+
+function renderEval() {
+  const { rows, totPct, grade } = evalSummary();
+  const tbody = document.getElementById('evalTableBody');
+
+  tbody.innerHTML = rows.map(({ item, val, idx }) => {
+    const g = GRADE_LETTERS[idx];
+    const groupCell = item.group
+      ? `<td class="eval-group-cell" rowspan="${item.span}">${item.group}
+           <div class="eval-group-sub">(${item.groupSub})</div>
+           <span class="eval-weight">비중 ${item.gw}</span></td>`
+      : '';
+    const bandCells = item.bands.map((b, i) =>
+      `<td class="band-cell ${i === idx ? 'active g' + GRADE_LETTERS[i] : ''}">${b}</td>`
+    ).join('');
+    let resultCell;
+    if (item.log) {
+      resultCell = `<span style="font-family:'Fira Code',monospace;font-weight:700;color:var(--accent)">${fmt(val)}${item.unit}</span>
+         <div class="auto-chip clickable" onclick="openKpiLog('${item.key}')">건별 등록 자동집계</div>`;
+    } else if (item.manual) {
+      resultCell = `<input class="kpi-result-input" type="number" min="0" value="${val || ''}" placeholder="0"
+           onchange="onKpiResultInput('${item.key}', this.value)">`;
+    } else {
+      resultCell = `<span style="font-family:'Fira Code',monospace;font-weight:700;color:var(--accent)">${fmt(val)}${item.unit}</span>
+         <div class="auto-chip">정량환산 자동연동</div>`;
+    }
+    const kpiCell = item.log
+      ? `<span class="kpi-link" onclick="openKpiLog('${item.key}')">${item.kpi}</span>`
+      : item.kpi;
+    return `<tr>
+      ${groupCell}
+      <td class="detail-cell">${kpiCell}</td>
+      <td class="num-cell dim">${fmt(item.plan)}<span class="unit">${item.unit}</span></td>
+      <td class="num-cell big" style="text-align:right">${resultCell}</td>
+      ${bandCells}
+      <td style="text-align:center"><span class="grade-badge g${g}">${g}</span></td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('evalTotPct').textContent = totPct + '%';
+  document.getElementById('evalTotGrade').innerHTML = `<span class="grade-badge g${grade}">${grade}</span>`;
+}
+
+function onKpiResultInput(key, val) {
+  kpiResults[key] = Number(val) || 0;
+  saveKpiResults();
+  renderEval();
+  if (SCRIPT_URL) saveKpiToSheets();
+}
+
+/* ─── KPI 건별 실적 팝업 ─── */
+let currentLogKey = null;
+
+function openKpiLog(key) {
+  currentLogKey = key;
+  const item = EVAL_ITEMS.find(i => i.key === key);
+  if (!item) return;
+  document.getElementById('kpiLogTitle').textContent = item.kpi.replace(/\s*\(\d+%\)$/, '');
+  document.getElementById('klDate').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('klTitle').value = '';
+  document.getElementById('klNote').value = '';
+  renderKpiLogList();
+  document.getElementById('kpiLogModal').classList.add('open');
+  setTimeout(() => document.getElementById('klTitle').focus(), 250);
+}
+
+function closeKpiLog() {
+  document.getElementById('kpiLogModal').classList.remove('open');
+  currentLogKey = null;
+}
+
+function renderKpiLogList() {
+  if (!currentLogKey) return;
+  const item = EVAL_ITEMS.find(i => i.key === currentLogKey);
+  const list = (kpiLogs[currentLogKey] || []).slice()
+    .sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id);
+  const box = document.getElementById('klogList');
+  box.innerHTML = list.length
+    ? list.map(e => `<div class="klog-item">
+        <span class="klog-date">${esc(e.date)}</span>
+        <div style="flex:1">
+          <div class="klog-title">${esc(e.title)}</div>
+          ${e.note ? `<div class="klog-note">${esc(e.note)}</div>` : ''}
+        </div>
+        <button class="btn-delete" onclick="deleteKpiLogEntry(${e.id})" title="삭제">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 3.5h10M5.5 3.5V2h3v1.5M3.5 3.5l.6 8a1 1 0 001 .9h3.8a1 1 0 001-.9l.6-8" stroke="#ff5c5c" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>`).join('')
+    : `<div class="klog-empty">등록된 실적이 없습니다 — 위에서 제목을 입력하고 추가하세요</div>`;
+  const idx = gradeIdx(list.length, item.mins);
+  document.getElementById('klogCount').innerHTML =
+    `누적 실적 <em>${list.length}${item.unit}</em> · My Plan ${fmt(item.plan)}${item.unit} · 현재 등급 <em>${GRADE_LETTERS[idx]}</em>`;
+}
+
+function addKpiLogEntry() {
+  const date  = document.getElementById('klDate').value;
+  const title = document.getElementById('klTitle').value.trim();
+  const note  = document.getElementById('klNote').value.trim();
+  if (!date)  { alert('날짜를 입력하세요.'); return; }
+  if (!title) { alert('제목을 입력하세요.'); return; }
+  if (!kpiLogs[currentLogKey]) kpiLogs[currentLogKey] = [];
+  kpiLogs[currentLogKey].push({ id: Date.now(), date, title, note });
+  saveKpiLogs();
+  renderKpiLogList();
+  renderEval();
+  document.getElementById('klTitle').value = '';
+  document.getElementById('klNote').value = '';
+  document.getElementById('klTitle').focus();
+  if (SCRIPT_URL) saveKpiToSheets();
+}
+
+function deleteKpiLogEntry(id) {
+  kpiLogs[currentLogKey] = (kpiLogs[currentLogKey] || []).filter(e => e.id !== id);
+  saveKpiLogs();
+  renderKpiLogList();
+  renderEval();
+  if (SCRIPT_URL) saveKpiToSheets();
+}
+
+function catStats() {
+  return CATS.map(c => {
+    const rows = entries.filter(e => e.cat === c.key);
+    const count = rows.reduce((s, e) => s + (Number(e.count) || 0), 0);
+    return { ...c, count, planPoint: c.point * c.target, actualPoint: c.point * count };
+  });
+}
+
+function renderScoreTable() {
+  const stats = catStats();
+  const tbody = document.getElementById('scoreTableBody');
+  tbody.innerHTML = stats.map(s => {
+    const pct = s.planPoint ? Math.round(s.actualPoint / s.planPoint * 100) : 0;
+    const w = Math.min(pct, 100);
+    return `<tr>
+      <td><div class="cat-cell"><span class="cat-dot" style="background:${s.color}"></span>${esc(s.group)}</div></td>
+      <td class="detail-cell">${esc(s.detail)}<div class="detail-sub">${esc(s.note)}</div></td>
+      <td class="num-cell dim">${s.point}P</td>
+      <td class="num-cell dim">${s.target}<span class="unit">${s.unit}</span></td>
+      <td class="num-cell big">${s.count}<span class="unit">${s.unit}</span></td>
+      <td class="num-cell dim">${fmt(s.planPoint)}P</td>
+      <td class="num-cell big" style="color:${s.actualPoint ? 'var(--accent)' : 'var(--text-dim)'}">${fmt(s.actualPoint)}P</td>
+      <td class="progress-cell">
+        <div class="progress-track"><div class="progress-fill" style="background:${s.color}" data-w="${w}"></div></div>
+        <div class="progress-label">${pct}%</div>
+      </td>
+    </tr>`;
+  }).join('');
+
+  requestAnimationFrame(() => {
+    tbody.querySelectorAll('.progress-fill').forEach(el => { el.style.width = el.dataset.w + '%'; });
+  });
+
+  const totPlan   = stats.reduce((s, c) => s + c.planPoint, 0);
+  const totActual = stats.reduce((s, c) => s + c.actualPoint, 0);
+  const totCount  = stats.reduce((s, c) => s + c.count, 0);
+  const totPct    = totPlan ? Math.round(totActual / totPlan * 100) : 0;
+  document.getElementById('totPlan').textContent   = fmt(totPlan) + 'P';
+  document.getElementById('totActual').textContent = fmt(totActual) + 'P';
+  document.getElementById('totActualCount').textContent = fmt(totCount);
+  document.getElementById('totRate').textContent   = totPct + '%';
+}
+
+function renderLog() {
+  const catF  = document.getElementById('filterCat').value;
+  const fromF = document.getElementById('filterFrom').value;
+  const toF   = document.getElementById('filterTo').value;
+
+  const rows = entries
+    .filter(e => (!catF || e.cat === catF) && (!fromF || e.date >= fromF) && (!toF || e.date <= toF))
+    .sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id);
+
+  const tbody = document.getElementById('logTableBody');
+  if (!rows.length) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="6">등록된 실적이 없습니다 — 우측 상단 <strong>실적 등록</strong> 버튼으로 추가하세요</td></tr>`;
+  } else {
+    tbody.innerHTML = rows.map(e => {
+      const c = catByKey(e.cat) || {};
+      const pts = (c.point || 0) * (Number(e.count) || 0);
+      return `<tr>
+        <td class="date-cell">${esc(e.date)}</td>
+        <td><span class="tag" style="background:${c.color}18;color:${c.color}">${esc(c.group || e.cat)}</span></td>
+        <td class="title-cell">${esc(e.title)}${e.note ? `<div class="note-sub">${esc(e.note)}</div>` : ''}</td>
+        <td class="num-cell">${e.count}<span class="unit">${c.unit || ''}</span></td>
+        <td class="num-cell big" style="color:var(--accent)">${fmt(pts)}P</td>
+        <td class="action-cell">
+          <button class="btn-edit" onclick="openModal(${e.id})" title="수정">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M9.8 1.8l2.4 2.4L4.6 11.8l-3 .6.6-3 7.6-7.6z" stroke="#4f7aff" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="btn-delete" onclick="askDelete(${e.id})" title="삭제">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M2 3.5h10M5.5 3.5V2h3v1.5M3.5 3.5l.6 8a1 1 0 001 .9h3.8a1 1 0 001-.9l.6-8" stroke="#ff5c5c" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+  document.getElementById('logCount').textContent = rows.length;
+}
+
+function resetFilters() {
+  document.getElementById('filterCat').value = '';
+  document.getElementById('filterFrom').value = '';
+  document.getElementById('filterTo').value = '';
+  renderLog();
+}
+
+/* ─── 실적 등록/수정 ─── */
+function openModal(id) {
+  editingId = (typeof id === 'number') ? id : null;
+  const e = editingId != null ? entries.find(x => x.id === editingId) : null;
+  document.getElementById('entryModalTitle').textContent = e ? '실적 수정' : '실적 등록';
+  document.getElementById('fDate').value  = e ? e.date : new Date().toISOString().slice(0, 10);
+  document.getElementById('fCat').value   = e ? e.cat : CATS[0].key;
+  document.getElementById('fTitle').value = e ? e.title : '';
+  document.getElementById('fCount').value = e ? e.count : 1;
+  document.getElementById('fNote').value  = e ? (e.note || '') : '';
+  updatePointPreview();
+  document.getElementById('entryModal').classList.add('open');
+  setTimeout(() => document.getElementById('fTitle').focus(), 250);
+}
+function closeModal() { document.getElementById('entryModal').classList.remove('open'); }
+
+function updatePointPreview() {
+  const c = catByKey(document.getElementById('fCat').value);
+  const n = Number(document.getElementById('fCount').value) || 0;
+  if (!c) return;
+  document.getElementById('previewFormula').textContent = `${c.point}P × ${n}${c.unit} =`;
+  document.getElementById('previewPoint').textContent = fmt(c.point * n) + 'P';
+}
+
+function saveEntry() {
+  const date  = document.getElementById('fDate').value;
+  const cat   = document.getElementById('fCat').value;
+  const title = document.getElementById('fTitle').value.trim();
+  const count = Number(document.getElementById('fCount').value);
+  const note  = document.getElementById('fNote').value.trim();
+
+  if (!date)  { alert('날짜를 입력하세요.'); return; }
+  if (!title) { alert('내용을 입력하세요.'); return; }
+  if (!count || count < 1) { alert('횟수는 1 이상이어야 합니다.'); return; }
+
+  let row;
+  if (editingId != null) {
+    row = entries.find(x => x.id === editingId);
+    Object.assign(row, { date, cat, title, count, note });
+  } else {
+    row = { id: nextId++, date, cat, title, count, note };
+    entries.push(row);
+  }
+  saveLocal();
+  render();
+  closeModal();
+  if (SCRIPT_URL) saveRowToSheets(row);
+}
+
+/* ─── 삭제 ─── */
+function askDelete(id) {
+  deleteTargetId = id;
+  const e = entries.find(x => x.id === id);
+  document.getElementById('confirmSub').textContent = e ? `"${e.title}" 항목이 삭제됩니다.` : '';
+  document.getElementById('confirmOverlay').classList.add('open');
+}
+function closeConfirm() { document.getElementById('confirmOverlay').classList.remove('open'); deleteTargetId = null; }
+function confirmDelete() {
+  if (deleteTargetId != null) {
+    entries = entries.filter(x => x.id !== deleteTargetId);
+    saveLocal();
+    render();
+    if (SCRIPT_URL) deleteRowFromSheets(deleteTargetId);
+  }
+  closeConfirm();
+}
+
+/* ═══════════════════════════════════════════════
+   Google Drive(Apps Script) 연동 — 워크오더와 동일 방식
+═══════════════════════════════════════════════ */
+function setSyncStatus(state, msg) {
+  const dot  = document.getElementById('syncDot');
+  const text = document.getElementById('syncText');
+  if (dot)  dot.className  = 'sync-dot ' + state;
+  if (text) text.innerHTML = msg;
+  const hDot = document.getElementById('driveStatusDot');
+  if (hDot) hDot.className = 'drive-status-dot ' + state;
+}
+
+/* JSONP 헬퍼 (file:// CORS 우회) */
+function jsonpFetch(url) {
+  return new Promise((resolve, reject) => {
+    const cbName = 'cb_' + Math.random().toString(36).slice(2);
+    const script = document.createElement('script');
+    const timeout = setTimeout(() => { cleanup(); reject(new Error('JSONP timeout')); }, 15000);
+    function cleanup() { clearTimeout(timeout); delete window[cbName]; script.remove(); }
+    window[cbName] = data => { cleanup(); resolve(data); };
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cbName;
+    script.onerror = () => { cleanup(); reject(new Error('JSONP load error')); };
+    document.head.appendChild(script);
+  });
+}
+
+async function apiPost(body) {
+  try {
+    const r = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: { 'Content-Type': 'text/plain' },
+    });
+    const json = await r.json();
+    if (!json.ok) throw new Error(json.error || 'API error');
+    return json;
+  } catch (e) {
+    if (e.name === 'TypeError' || String(e.message).includes('fetch')) {
+      await fetch(SCRIPT_URL, {
+        method: 'POST', mode: 'no-cors',
+        body: JSON.stringify(body),
+        headers: { 'Content-Type': 'text/plain' },
+      });
+      return { ok: true };
+    }
+    throw e;
+  }
+}
+
+async function loadFromDrive() {
+  if (!SCRIPT_URL) { openSetupModal(); return; }
+  setSyncStatus('loading', '불러오는 중...');
+  document.getElementById('btnLoad').disabled = true;
+  try {
+    const json = await jsonpFetch(SCRIPT_URL + '?action=load');
+    if (!json.ok) throw new Error(json.error);
+    if (Array.isArray(json.data)) {
+      if (json.data.length > 0) {
+        entries = json.data.map(r => ({
+          id: Number(r.id) || r.id,
+          date: String(r.date || '').slice(0, 10),
+          cat: r.cat, title: r.title || '',
+          count: Number(r.count) || 0,
+          note: r.note || '',
+        }));
+        nextId = Math.max(...entries.map(e => Number(e.id) || 0)) + 1;
+        saveLocal();
+      } else if (entries.length > 0) {
+        setSyncStatus('saving', 'Sheets에 초기 데이터 저장 중...');
+        for (const row of entries) await apiPost({ action: 'save_row', row });
+      }
+    }
+    if (json.kpiResults && typeof json.kpiResults === 'object') {
+      kpiResults = json.kpiResults;
+      saveKpiResults();
+    }
+    if (json.kpiLogs && typeof json.kpiLogs === 'object') {
+      kpiLogs = json.kpiLogs;
+      saveKpiLogs();
+    }
+    render();
+    setSyncStatus('connected', `✅ 불러오기 완료 · ${entries.length}건 · ${new Date().toLocaleString('ko-KR')}`);
+  } catch (err) {
+    setSyncStatus('error', '❌ 불러오기 실패: ' + err.message);
+  }
+  document.getElementById('btnLoad').disabled = false;
+}
+
+async function saveRowToSheets(row) {
+  try {
+    setSyncStatus('saving', '저장 중...');
+    await apiPost({ action: 'save_row', row });
+    setSyncStatus('connected', '☁ 저장 완료 · ' + new Date().toLocaleString('ko-KR'));
+  } catch (err) {
+    setSyncStatus('error', '❌ 저장 실패: ' + err.message);
+  }
+}
+
+let kpiSaveTimer = null;
+function saveKpiToSheets() {
+  clearTimeout(kpiSaveTimer);
+  kpiSaveTimer = setTimeout(async () => {
+    try {
+      setSyncStatus('saving', 'KPI 실적 저장 중...');
+      await apiPost({ action: 'save_kpi', kpiResults, kpiLogs });
+      setSyncStatus('connected', '☁ 저장 완료 · ' + new Date().toLocaleString('ko-KR'));
+    } catch (err) {
+      setSyncStatus('error', '❌ 저장 실패: ' + err.message);
+    }
+  }, 600);
+}
+
+async function deleteRowFromSheets(id) {
+  try {
+    await apiPost({ action: 'delete_row', id });
+    setSyncStatus('connected', '🗑 삭제 완료 · ' + new Date().toLocaleString('ko-KR'));
+  } catch (err) {
+    setSyncStatus('error', '❌ 삭제 실패: ' + err.message);
+  }
+}
+
+async function saveToDrive() {
+  if (!SCRIPT_URL) { openSetupModal(); return; }
+  if (isSyncing) return;
+  isSyncing = true;
+  setSyncStatus('saving', '전체 저장 중...');
+  document.getElementById('btnSave').disabled = true;
+  try {
+    for (const row of entries) await apiPost({ action: 'save_row', row });
+    await apiPost({ action: 'save_kpi', kpiResults, kpiLogs });
+    setSyncStatus('connected', '☁ 저장 완료 · ' + new Date().toLocaleString('ko-KR'));
+  } catch (err) {
+    setSyncStatus('error', '❌ 저장 실패: ' + err.message);
+  }
+  isSyncing = false;
+  document.getElementById('btnSave').disabled = false;
+}
+
+/* ─── Setup 모달 ─── */
+function openSetupModal() {
+  document.getElementById('fScriptUrl').value = SCRIPT_URL;
+  document.getElementById('setupModal').classList.add('open');
+}
+function closeSetupModal() { document.getElementById('setupModal').classList.remove('open'); }
+
+async function saveScriptUrl() {
+  const url = document.getElementById('fScriptUrl').value.trim();
+  if (!url) {
+    SCRIPT_URL = '';
+    localStorage.removeItem(SCRIPT_KEY);
+    setSyncStatus('disconnected', '로컬 저장 모드 — Drive 연동이 해제되었습니다');
+    closeSetupModal();
+    return;
+  }
+  SCRIPT_URL = url;
+  localStorage.setItem(SCRIPT_KEY, url);
+  closeSetupModal();
+  setSyncStatus('loading', '연결 테스트 중...');
+  try {
+    const json = await jsonpFetch(SCRIPT_URL + '?action=load');
+    if (!json.ok) throw new Error(json.error);
+    setSyncStatus('connected', '✅ 연결 성공 — <strong>⬇ 불러오기</strong>로 데이터를 가져오거나 <strong>☁ 저장</strong>으로 업로드하세요');
+  } catch (err) {
+    setSyncStatus('error', '❌ 연결 실패: ' + err.message);
+  }
+}
+
+/* ─── Apps Script 코드 (지정 Drive 폴더에 스프레드시트 자동 생성) ─── */
+const GAS_CODE = `/** 소프트힐스 마케팅 KPI — Google Apps Script
+ * Drive 폴더(${DRIVE_FOLDER_ID}) 안에 '마케팅 KPI 실적' 스프레드시트를 만들어 데이터를 저장합니다.
+ */
+const FOLDER_ID = '${DRIVE_FOLDER_ID}';
+const SS_NAME   = '마케팅 KPI 실적';
+const HEADERS   = ['id','date','cat','title','count','note'];
+
+function getSheet_() {
+  const folder = DriveApp.getFolderById(FOLDER_ID);
+  const files = folder.getFilesByName(SS_NAME);
+  let ss;
+  if (files.hasNext()) {
+    ss = SpreadsheetApp.open(files.next());
+  } else {
+    ss = SpreadsheetApp.create(SS_NAME);
+    DriveApp.getFileById(ss.getId()).moveTo(folder);
+  }
+  let sh = ss.getSheetByName('entries');
+  if (!sh) {
+    sh = ss.insertSheet('entries');
+    sh.appendRow(HEADERS);
+  }
+  return sh;
+}
+
+function readAll_(sh) {
+  const values = sh.getDataRange().getValues();
+  const rows = [];
+  for (let i = 1; i < values.length; i++) {
+    const o = {};
+    HEADERS.forEach((h, j) => o[h] = values[i][j]);
+    if (o.date instanceof Date) o.date = Utilities.formatDate(o.date, 'Asia/Seoul', 'yyyy-MM-dd');
+    rows.push(o);
+  }
+  return rows;
+}
+
+function getKpiSheet_() {
+  const ss = getSheet_().getParent();
+  let sh = ss.getSheetByName('kpi');
+  if (!sh) {
+    sh = ss.insertSheet('kpi');
+    sh.getRange(1, 1).setValue('{}');
+  }
+  return sh;
+}
+
+function doGet(e) {
+  const sh = getSheet_();
+  let kv = {};
+  try { kv = JSON.parse(getKpiSheet_().getRange(1, 1).getValue() || '{}'); } catch (err) {}
+  const out = { ok: true, data: readAll_(sh), kpiResults: kv.kpiResults || {}, kpiLogs: kv.kpiLogs || {} };
+  const cb = e.parameter.callback;
+  const body = cb ? cb + '(' + JSON.stringify(out) + ')' : JSON.stringify(out);
+  return ContentService.createTextOutput(body)
+    .setMimeType(cb ? ContentService.MimeType.JAVASCRIPT : ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  const sh = getSheet_();
+  let out = { ok: true };
+  try {
+    const body = JSON.parse(e.postData.contents);
+    if (body.action === 'save_kpi') {
+      getKpiSheet_().getRange(1, 1).setValue(JSON.stringify({
+        kpiResults: body.kpiResults || {},
+        kpiLogs: body.kpiLogs || {}
+      }));
+    } else if (body.action === 'save_row') {
+      const r = body.row;
+      const values = sh.getDataRange().getValues();
+      let rowIdx = -1;
+      for (let i = 1; i < values.length; i++) {
+        if (String(values[i][0]) === String(r.id)) { rowIdx = i + 1; break; }
+      }
+      const rowArr = HEADERS.map(h => r[h] !== undefined ? r[h] : '');
+      if (rowIdx > 0) sh.getRange(rowIdx, 1, 1, HEADERS.length).setValues([rowArr]);
+      else sh.appendRow(rowArr);
+    } else if (body.action === 'delete_row') {
+      const values = sh.getDataRange().getValues();
+      for (let i = values.length - 1; i >= 1; i--) {
+        if (String(values[i][0]) === String(body.id)) sh.deleteRow(i + 1);
+      }
+    } else {
+      out = { ok: false, error: 'unknown action' };
+    }
+  } catch (err) {
+    out = { ok: false, error: String(err) };
+  }
+  return ContentService.createTextOutput(JSON.stringify(out))
+    .setMimeType(ContentService.MimeType.JSON);
+}`;
+
+function copyGasCode() {
+  navigator.clipboard.writeText(GAS_CODE)
+    .then(() => alert('Apps Script 코드가 복사되었습니다.\nscript.google.com 새 프로젝트에 붙여넣으세요.'))
+    .catch(() => {
+      const w = window.open('', '_blank');
+      w.document.write('<pre>' + GAS_CODE.replace(/</g, '&lt;') + '</pre>');
+    });
+}
+
+/* ─── 엑셀 다운로드 ─── */
+function exportExcel() {
+  const stats = catStats();
+  const wb = XLSX.utils.book_new();
+
+  const ev = evalSummary();
+  const s0 = ev.rows.map(({ item, val, idx }) => ({
+    '평가항목': item.group ? `${item.group} (${item.groupSub})` : '',
+    '비중(%)': item.weight,
+    'KPI': item.kpi,
+    'My Plan': item.plan,
+    '실적': val,
+    '등급': GRADE_LETTERS[idx],
+    'C(90%)': item.bands[0], 'B(95%)': item.bands[1], 'A(100%)': item.bands[2], 'S(105%)': item.bands[3],
+  }));
+  s0.push({ '평가항목': '가중 종합', '비중(%)': 100, 'KPI': '', 'My Plan': '', '실적': ev.totPct + '%', '등급': ev.grade, 'C(90%)': '', 'B(95%)': '', 'A(100%)': '', 'S(105%)': '' });
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(s0), 'KPI 평가');
+
+  const sk = [];
+  EVAL_ITEMS.filter(i => i.log).forEach(i => {
+    (kpiLogs[i.key] || []).slice()
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .forEach(e => sk.push({ 'KPI': i.kpi, '날짜': e.date, '제목': e.title, '내용': e.note || '' }));
+  });
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(sk.length ? sk : [{ 'KPI': '', '날짜': '', '제목': '', '내용': '' }]), 'KPI 실적 이력');
+
+  const s1 = stats.map(s => ({
+    '구분': s.group, '상세': s.detail, '점수(P)': s.point,
+    '목표 횟수': s.target + s.unit, '실적 횟수': s.count + s.unit,
+    '예상 점수(P)': s.planPoint, '달성 점수(P)': s.actualPoint,
+    '달성률(%)': s.planPoint ? Math.round(s.actualPoint / s.planPoint * 100) : 0,
+    '비고': s.note,
+  }));
+  s1.push({
+    '구분': '합계', '상세': '', '점수(P)': '', '목표 횟수': '', '실적 횟수': '',
+    '예상 점수(P)': stats.reduce((a, c) => a + c.planPoint, 0),
+    '달성 점수(P)': stats.reduce((a, c) => a + c.actualPoint, 0),
+    '달성률(%)': '', '비고': '',
+  });
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(s1), '정량환산 현황');
+
+  const s2 = entries
+    .slice().sort((a, b) => a.date.localeCompare(b.date))
+    .map(e => {
+      const c = catByKey(e.cat) || {};
+      return {
+        '날짜': e.date, '구분': c.group || e.cat, '상세': c.detail || '',
+        '내용': e.title, '횟수': e.count, '환산 점수(P)': (c.point || 0) * e.count, '비고': e.note || '',
+      };
+    });
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(s2.length ? s2 : [{'날짜':'','구분':'','상세':'','내용':'','횟수':'','환산 점수(P)':'','비고':''}]), '실적 이력');
+
+  XLSX.writeFile(wb, `소프트힐스_마케팅KPI_${new Date().toISOString().slice(0,10)}.xlsx`);
+}
+
+/* ─── 초기화 ─── */
+function initSelects() {
+  const optHtml = CATS.map(c => `<option value="${c.key}">${c.group} — ${c.detail} (${c.point}P/${c.unit})</option>`).join('');
+  document.getElementById('fCat').innerHTML = optHtml;
+  document.getElementById('filterCat').innerHTML =
+    '<option value="">전체 구분</option>' +
+    CATS.map(c => `<option value="${c.key}">${c.group} — ${c.detail}</option>`).join('');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeModal(); closeConfirm(); closeSetupModal(); closeKpiLog(); }
+});
+['entryModal', 'setupModal', 'kpiLogModal'].forEach(id => {
+  document.getElementById(id).addEventListener('click', e => {
+    if (e.target.id === id) document.getElementById(id).classList.remove('open');
+  });
+});
+
+initSelects();
+render();
+if (SCRIPT_URL) {
+  setSyncStatus('connected', '☁ Drive 연동됨 — <strong>⬇ 불러오기</strong>로 최신 데이터를 가져오세요');
+  setTimeout(() => loadFromDrive(), 400);
+} else {
+  setSyncStatus('disconnected', '로컬 저장 모드 — <strong>Drive 연동</strong> 버튼으로 클라우드 저장을 설정하세요');
+}
+</script>
+</body>
+</html>
