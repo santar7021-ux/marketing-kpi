@@ -320,6 +320,22 @@
     background: var(--surface);
   }
 
+  /* 정량환산 점수·목표 수정 입력칸 */
+  .cat-edit-input {
+    width: 62px; padding: 6px 8px;
+    border: 1.5px solid var(--border); border-radius: 7px;
+    background: var(--surface2);
+    font-family: 'Fira Code', monospace; font-size: 13px; font-weight: 600;
+    color: var(--text-secondary); text-align: right;
+    outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .cat-edit-input:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(79,122,255,0.12);
+    background: var(--surface);
+    color: var(--text-primary);
+  }
+
   .auto-chip {
     display: inline-block; font-size: 10.5px; font-weight: 700;
     font-family: 'Fira Code', monospace;
@@ -685,41 +701,6 @@
   }
   .confirm-yes:hover { background: #e04444; }
 
-  /* ─── Setup modal ─── */
-  .setup-modal-desc {
-    font-size: 13px; color: var(--text-secondary); line-height: 1.7;
-    background: var(--surface2); border-radius: 10px; padding: 14px 16px;
-    border: 1px solid var(--border);
-    margin-bottom: 18px;
-  }
-  .setup-step {
-    display: flex; gap: 12px; align-items: flex-start;
-    padding: 10px 0; border-bottom: 1px solid var(--border);
-  }
-  .setup-step:last-child { border-bottom: none; }
-  .setup-num {
-    width: 22px; height: 22px; border-radius: 50%;
-    background: var(--accent); color: #fff;
-    font-size: 11px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; margin-top: 1px;
-  }
-  .setup-step-text { font-size: 13px; line-height: 1.6; }
-  .setup-step-text code {
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 4px; padding: 1px 6px; font-size: 11px;
-    font-family: 'Fira Code', monospace; color: var(--accent);
-  }
-  .copy-btn {
-    display: inline-flex; align-items: center; gap: 4px;
-    font-size: 11px; font-weight: 600; color: var(--accent);
-    background: var(--accent-light); border: 1px solid rgba(79,122,255,0.25);
-    border-radius: 5px; padding: 2px 8px; cursor: pointer;
-    font-family: 'Pretendard', sans-serif; transition: all 0.15s;
-    margin-left: 4px;
-  }
-  .copy-btn:hover { background: #dde6ff; }
-
   /* ─── Footer ─── */
   .footer {
     margin-top: 48px; text-align: center;
@@ -786,6 +767,7 @@
     .eval-group-cell { font-size: 13px; }
     .grade-badge { width: 28px; height: 28px; font-size: 13px; border-radius: 8px; }
     .kpi-result-input { width: 84px; font-size: 13px; }
+    .cat-edit-input { width: 54px; font-size: 12px; padding: 5px 6px; }
     .progress-cell { min-width: 110px; }
 
     /* 모달 */
@@ -825,7 +807,7 @@
         <svg viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         엑셀 다운로드
       </button>
-      <button class="drive-setup-btn" onclick="openSetupModal()" title="Google Drive 연동 설정">
+      <button class="drive-setup-btn" onclick="openSetupModal()" title="Google Drive 연동 정보">
         <svg viewBox="0 0 16 16" fill="none"><path d="M8 2.5C8 2.5 5 5 5 8.5a3 3 0 006 0C11 5 8 2.5 8 2.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 11l2.5-2M13 11l-2.5-2M8 13.5V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         Drive 연동
         <span class="drive-status-dot" id="driveStatusDot"></span>
@@ -836,7 +818,7 @@
   <!-- Drive Sync Strip -->
   <div class="sync-bar">
     <div class="sync-dot disconnected" id="syncDot"></div>
-    <div class="sync-text" id="syncText">로컬 저장 모드 — Drive 연동을 설정하면 클라우드에 저장됩니다</div>
+    <div class="sync-text" id="syncText">연결 준비 중...</div>
     <div class="sync-actions">
       <button class="sync-btn load" onclick="loadFromDrive()" id="btnLoad">⬇ 불러오기</button>
       <button class="sync-btn save" onclick="saveToDrive()"   id="btnSave">☁ 저장</button>
@@ -884,7 +866,7 @@
   <div class="score-section">
     <div class="table-header-row">
       <div class="section-title">마케팅 인프라 정량 환산 점수 현황</div>
-      <div class="log-count-badge">산식: 컨텐츠별 공수 점수 × 진행 횟수</div>
+      <div class="log-count-badge">산식: 컨텐츠별 공수 점수 × 진행 횟수 · 점수/목표 횟수 수정 가능</div>
     </div>
     <div class="table-wrap">
       <table>
@@ -1060,27 +1042,22 @@ const DRIVE_FOLDER_ID = '17A7jECSzMRjteMehW1XiIm6VrzWnHEIl';
 const EVAL_ITEMS = [
   { key: 'lead',      group: '1. 고객 문의 확대',    groupSub: '리드 확보',        gw: '10%', span: 1,
     kpi: '홈페이지/온라인 광고를 통한 문의 (건수)', weight: 10, plan: 10, unit: '건',
-    bands: ['0~4', '5~9', '10~14', '15 이상'], mins: [5, 10, 15], log: true,
-    reason: '전시회/컨퍼런스 금년도 계획 미비<br>주로 온라인 광고를 통해서만 마케팅 인입 발생 (고관여 솔루션)', reasonSpan: 1 },
+    bands: ['0~4', '5~9', '10~14', '15 이상'], mins: [5, 10, 15], log: true },
   { key: 'pageviews', group: '2. 마케팅 인프라 구축', groupSub: '컨텐츠 확대',      gw: '70%', span: 2,
     kpi: '홈페이지 활성화 (연 조회 수) (20%)', weight: 20, plan: 113146, unit: '회',
-    bands: ['101,831~107,487', '107,488~113,145', '113,146~118,803', '118,804 이상'], mins: [107488, 113146, 118804], manual: true,
-    reason: '홈페이지 조회 기준 재정립', reasonSpan: 1 },
+    bands: ['101,831~107,487', '107,488~113,145', '113,146~118,803', '118,804 이상'], mins: [107488, 113146, 118804], manual: true },
   { key: 'infra',
     kpi: '마케팅 인프라 (점수) (50%)', weight: 50, plan: 1400, unit: 'P',
-    bands: ['1,260~1,329', '1,330~1,399', '1,400~1,469', '1,470 이상'], mins: [1330, 1400, 1470], manual: false,
-    reason: '중심 업무 위주 재정립<br>대외 행사 미 개최 시 고려', reasonSpan: 1 },
+    bands: ['1,260~1,329', '1,330~1,399', '1,400~1,469', '1,470 이상'], mins: [1330, 1400, 1470], manual: false },
   { key: 'expo',      group: '3. 자기개발',          groupSub: '적응 및 개인 성취', gw: '10%', span: 2,
     kpi: '산업별/솔루션별 전시회, 컨퍼런스 참관 (건수) (5%)', weight: 5, plan: 6, unit: '건',
-    bands: ['0~2', '3~5', '6~8', '9 이상'], mins: [3, 6, 9], log: true,
-    reason: '전시회, 컨퍼런스 참관 및 보고 역할 증대', reasonSpan: 2 },
+    bands: ['0~2', '3~5', '6~8', '9 이상'], mins: [3, 6, 9], log: true },
   { key: 'cert',
     kpi: '마케팅 관련 민간/공인 자격증 취득 (건수) (5%)', weight: 5, plan: 2, unit: '건',
     bands: ['0', '1', '2', '3 이상'], mins: [1, 2, 3], log: true },
   { key: 'event',     group: '4. 조직기여',          groupSub: '조직 발전 기여',    gw: '10%', span: 2,
     kpi: '사내 행사 기획 및 지원 (건수) (5%)', weight: 5, plan: 2, unit: '건',
-    bands: ['0', '1', '2', '3 이상'], mins: [1, 2, 3], log: true,
-    reason: '송년회, VIP 초청 세미나, 부산지사 개소식 외 없음', reasonSpan: 2 },
+    bands: ['0', '1', '2', '3 이상'], mins: [1, 2, 3], log: true },
   { key: 'process',
     kpi: '마케팅 업무 프로세스 개선 안 마련 (완료) (5%)', weight: 5, plan: 2, unit: '건',
     bands: ['0', '1', '2', '3 이상'], mins: [1, 2, 3], log: true },
@@ -1092,6 +1069,7 @@ const GRADE_PCTS    = [90, 95, 100, 105];
 const ENTRIES_KEY     = 'sh_kpi_entries';
 const KPI_RESULTS_KEY = 'sh_kpi_results';
 const KPI_LOGS_KEY    = 'sh_kpi_logs';
+const CAT_CONFIG_KEY  = 'sh_kpi_cat_config';
 
 /* Apps Script 웹 앱 URL — 워크오더와 동일하게 코드에 고정 (재입력 불필요) */
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwzz9BcJgj1ORN03LS8fZjj7q5Y-Xu9TT0b-mFJZ3ht3Kxry16WpSrvNMGH16FfvkX0/exec';
@@ -1127,8 +1105,21 @@ function saveKpiLogs() {
   try { localStorage.setItem(KPI_LOGS_KEY, JSON.stringify(kpiLogs)); } catch {}
 }
 
+/* 정량환산 점수·목표 횟수 수정값: { homepage: {point, target}, ... } */
+let catConfig = loadCatConfig();
+function loadCatConfig() {
+  try { return JSON.parse(localStorage.getItem(CAT_CONFIG_KEY) || '{}'); } catch { return {}; }
+}
+function saveCatConfig() {
+  try { localStorage.setItem(CAT_CONFIG_KEY, JSON.stringify(catConfig)); } catch {}
+}
+
 /* ─── 유틸 ─── */
-const catByKey = k => CATS.find(c => c.key === k);
+function effCat(c) {
+  const o = catConfig[c.key] || {};
+  return { ...c, point: Number(o.point ?? c.point), target: Number(o.target ?? c.target) };
+}
+const catByKey = k => { const c = CATS.find(x => x.key === k); return c ? effCat(c) : undefined; };
 const fmt = n => n.toLocaleString('ko-KR');
 const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
@@ -1290,10 +1281,22 @@ function deleteKpiLogEntry(id) {
 
 function catStats() {
   return CATS.map(c => {
+    const ec = effCat(c);
     const rows = entries.filter(e => e.cat === c.key);
     const count = rows.reduce((s, e) => s + (Number(e.count) || 0), 0);
-    return { ...c, count, planPoint: c.point * c.target, actualPoint: c.point * count };
+    return { ...ec, count, planPoint: ec.point * ec.target, actualPoint: ec.point * count };
   });
+}
+
+function onCatConfigInput(key, field, val) {
+  if (!catConfig[key]) catConfig[key] = {};
+  catConfig[key][field] = Number(val) || 0;
+  saveCatConfig();
+  const fSel = document.getElementById('filterCat').value;
+  initSelects();
+  document.getElementById('filterCat').value = fSel;
+  render();
+  if (SCRIPT_URL) saveKpiToSheets();
 }
 
 function renderScoreTable() {
@@ -1305,8 +1308,10 @@ function renderScoreTable() {
     return `<tr>
       <td><div class="cat-cell"><span class="cat-dot" style="background:${s.color}"></span>${esc(s.group)}</div></td>
       <td class="detail-cell">${esc(s.detail)}<div class="detail-sub">${esc(s.note)}</div></td>
-      <td class="num-cell dim">${s.point}P</td>
-      <td class="num-cell dim">${s.target}<span class="unit">${s.unit}</span></td>
+      <td class="num-cell dim"><input class="cat-edit-input" type="number" min="0" value="${s.point}"
+        onchange="onCatConfigInput('${s.key}','point',this.value)"><span class="unit">P</span></td>
+      <td class="num-cell dim"><input class="cat-edit-input" type="number" min="0" value="${s.target}"
+        onchange="onCatConfigInput('${s.key}','target',this.value)"><span class="unit">${s.unit}</span></td>
       <td class="num-cell big">${s.count}<span class="unit">${s.unit}</span></td>
       <td class="num-cell dim">${fmt(s.planPoint)}P</td>
       <td class="num-cell big" style="color:${s.actualPoint ? 'var(--accent)' : 'var(--text-dim)'}">${fmt(s.actualPoint)}P</td>
@@ -1342,7 +1347,7 @@ function renderLog() {
 
   const tbody = document.getElementById('logTableBody');
   if (!rows.length) {
-    tbody.innerHTML = `<tr class="empty-row"><td colspan="6">등록된 실적이 없습니다 — 우측 상단 <strong>실적 등록</strong> 버튼으로 추가하세요</td></tr>`;
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="6">등록된 실적이 없습니다 — 상단 <strong>실적 등록</strong> 버튼으로 추가하세요</td></tr>`;
   } else {
     tbody.innerHTML = rows.map(e => {
       const c = catByKey(e.cat) || {};
@@ -1521,6 +1526,11 @@ async function loadFromDrive() {
       kpiLogs = json.kpiLogs;
       saveKpiLogs();
     }
+    if (json.catConfig && typeof json.catConfig === 'object') {
+      catConfig = json.catConfig;
+      saveCatConfig();
+      initSelects();
+    }
     render();
     setSyncStatus('connected', `✅ 불러오기 완료 · ${entries.length}건 · ${new Date().toLocaleString('ko-KR')}`);
   } catch (err) {
@@ -1545,7 +1555,7 @@ function saveKpiToSheets() {
   kpiSaveTimer = setTimeout(async () => {
     try {
       setSyncStatus('saving', 'KPI 실적 저장 중...');
-      await apiPost({ action: 'save_kpi', kpiResults, kpiLogs });
+      await apiPost({ action: 'save_kpi', kpiResults, kpiLogs, catConfig });
       setSyncStatus('connected', '☁ 저장 완료 · ' + new Date().toLocaleString('ko-KR'));
     } catch (err) {
       setSyncStatus('error', '❌ 저장 실패: ' + err.message);
@@ -1570,7 +1580,7 @@ async function saveToDrive() {
   document.getElementById('btnSave').disabled = true;
   try {
     for (const row of entries) await apiPost({ action: 'save_row', row });
-    await apiPost({ action: 'save_kpi', kpiResults, kpiLogs });
+    await apiPost({ action: 'save_kpi', kpiResults, kpiLogs, catConfig });
     setSyncStatus('connected', '☁ 저장 완료 · ' + new Date().toLocaleString('ko-KR'));
   } catch (err) {
     setSyncStatus('error', '❌ 저장 실패: ' + err.message);
@@ -1637,7 +1647,7 @@ function doGet(e) {
   const sh = getSheet_();
   let kv = {};
   try { kv = JSON.parse(getKpiSheet_().getRange(1, 1).getValue() || '{}'); } catch (err) {}
-  const out = { ok: true, data: readAll_(sh), kpiResults: kv.kpiResults || {}, kpiLogs: kv.kpiLogs || {} };
+  const out = { ok: true, data: readAll_(sh), kpiResults: kv.kpiResults || {}, kpiLogs: kv.kpiLogs || {}, catConfig: kv.catConfig || {} };
   const cb = e.parameter.callback;
   const body = cb ? cb + '(' + JSON.stringify(out) + ')' : JSON.stringify(out);
   return ContentService.createTextOutput(body)
@@ -1652,7 +1662,8 @@ function doPost(e) {
     if (body.action === 'save_kpi') {
       getKpiSheet_().getRange(1, 1).setValue(JSON.stringify({
         kpiResults: body.kpiResults || {},
-        kpiLogs: body.kpiLogs || {}
+        kpiLogs: body.kpiLogs || {},
+        catConfig: body.catConfig || {}
       }));
     } else if (body.action === 'save_row') {
       const r = body.row;
@@ -1681,7 +1692,7 @@ function doPost(e) {
 
 function copyGasCode() {
   navigator.clipboard.writeText(GAS_CODE)
-    .then(() => alert('Apps Script 코드가 복사되었습니다.\nscript.google.com 새 프로젝트에 붙여넣으세요.'))
+    .then(() => alert('Apps Script 코드가 복사되었습니다.\nscript.google.com 프로젝트에 붙여넣고 새 버전으로 재배포하세요.'))
     .catch(() => {
       const w = window.open('', '_blank');
       w.document.write('<pre>' + GAS_CODE.replace(/</g, '&lt;') + '</pre>');
@@ -1745,7 +1756,7 @@ function exportExcel() {
 
 /* ─── 초기화 ─── */
 function initSelects() {
-  const optHtml = CATS.map(c => `<option value="${c.key}">${c.group} — ${c.detail} (${c.point}P/${c.unit})</option>`).join('');
+  const optHtml = CATS.map(c => { const e = effCat(c); return `<option value="${e.key}">${e.group} — ${e.detail} (${e.point}P/${e.unit})</option>`; }).join('');
   document.getElementById('fCat').innerHTML = optHtml;
   document.getElementById('filterCat').innerHTML =
     '<option value="">전체 구분</option>' +
@@ -1753,7 +1764,7 @@ function initSelects() {
 }
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeModal(); closeConfirm(); closeSetupModal(); closeKpiLog(); }
+  if (e.key === 'Escape') { closeModal(); closeConfirm(); closeKpiLog(); }
 });
 ['entryModal', 'kpiLogModal'].forEach(id => {
   document.getElementById(id).addEventListener('click', e => {
