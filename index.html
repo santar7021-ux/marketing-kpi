@@ -880,6 +880,13 @@
         <select class="filter-select" id="filterCat" onchange="renderLog()">
           <option value="">전체 구분</option>
         </select>
+        <select class="filter-select" id="filterMedia" onchange="renderLog()" style="display:none">
+          <option value="">전체 매체</option>
+          <option value="인스타그램">인스타그램</option>
+          <option value="페이스북 페이지">페이스북 페이지</option>
+          <option value="링크드인">링크드인</option>
+          <option value="기타">기타</option>
+        </select>
         <input class="date-input" type="date" id="filterFrom" onchange="renderLog()">
         <span class="date-sep">~</span>
         <input class="date-input" type="date" id="filterTo" onchange="renderLog()">
@@ -933,10 +940,8 @@
         <label class="form-label">매체</label>
         <select class="form-select" id="fMedia">
           <option value="인스타그램">인스타그램</option>
+          <option value="페이스북 페이지">페이스북 페이지</option>
           <option value="링크드인">링크드인</option>
-          <option value="유튜브">유튜브</option>
-          <option value="페이스북">페이스북</option>
-          <option value="X(트위터)">X(트위터)</option>
           <option value="기타">기타</option>
         </select>
       </div>
@@ -1440,11 +1445,21 @@ function renderScoreTable() {
 
 function renderLog() {
   const catF  = document.getElementById('filterCat').value;
+  // SNS 미디어 채널 선택 시에만 매체 필터 표시
+  const mediaSel = document.getElementById('filterMedia');
+  const showMedia = catF === 'sns';
+  mediaSel.style.display = showMedia ? '' : 'none';
+  if (!showMedia) mediaSel.value = '';
+  const mediaF = mediaSel.value;
+
   const fromF = document.getElementById('filterFrom').value;
   const toF   = document.getElementById('filterTo').value;
 
   const rows = entries
-    .filter(e => (!catF || e.cat === catF) && (!fromF || e.date >= fromF) && (!toF || e.date <= toF))
+    .filter(e => (!catF || e.cat === catF)
+      && (!mediaF || e.media === mediaF)
+      && (!fromF || e.date >= fromF)
+      && (!toF || e.date <= toF))
     .sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id);
 
   const tbody = document.getElementById('logTableBody');
@@ -1476,6 +1491,7 @@ function renderLog() {
 
 function resetFilters() {
   document.getElementById('filterCat').value = '';
+  document.getElementById('filterMedia').value = '';
   document.getElementById('filterFrom').value = '';
   document.getElementById('filterTo').value = '';
   renderLog();
