@@ -198,51 +198,6 @@
 
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
 
-  /* ─── KPI Cards ─── */
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: fadeUp 0.5s ease 0.08s forwards;
-  }
-
-  .kpi-card {
-    background: var(--surface);
-    border-radius: var(--radius);
-    padding: 22px 24px;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--border);
-    position: relative; overflow: hidden;
-    transition: box-shadow 0.2s, transform 0.2s;
-  }
-  .kpi-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-
-  .kpi-icon {
-    position: absolute; top: 18px; right: 20px;
-    width: 36px; height: 36px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-  }
-  .kpi-card.plan   .kpi-icon { background: var(--accent-light); }
-  .kpi-card.actual .kpi-icon { background: var(--accent4-light); }
-  .kpi-card.rate   .kpi-icon { background: var(--accent3-light); }
-  .kpi-card.grade  .kpi-icon { background: var(--accent2-light); }
-
-  .kpi-label {
-    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
-    color: var(--text-secondary); margin-bottom: 10px;
-    font-family: 'Fira Code', monospace;
-  }
-  .kpi-value {
-    font-size: 26px; font-weight: 900; letter-spacing: -0.5px;
-    color: var(--text-primary); font-family: 'Fira Code', monospace; line-height: 1;
-  }
-  .kpi-value small { font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-left: 3px; }
-  .kpi-sub { font-size: 11px; color: var(--text-dim); margin-top: 6px; }
-  .kpi-sub em { color: var(--accent4); font-style: normal; font-weight: 700; }
-
   /* ─── Section ─── */
   .section-card {
     background: var(--surface);
@@ -344,6 +299,14 @@
   }
   .auto-chip.clickable { cursor: pointer; color: var(--accent); background: var(--accent-light); }
   .auto-chip.clickable:hover { background: #dde6ff; }
+
+  /* 매체 표시 칩 */
+  .media-chip {
+    display: inline-block; font-size: 10.5px; font-weight: 700;
+    color: var(--accent); background: var(--accent-light);
+    border-radius: 5px; padding: 2px 7px; margin-right: 6px;
+    vertical-align: 1px; white-space: nowrap;
+  }
 
   /* ─── KPI 클릭 → 건별 실적 팝업 ─── */
   .kpi-link {
@@ -721,7 +684,6 @@
 
   /* ─── Responsive ─── */
   @media (max-width: 960px) {
-    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
     .header { flex-wrap: wrap; gap: 14px; }
     .header-right { width: 100%; justify-content: flex-end; flex-wrap: wrap; }
   }
@@ -967,6 +929,17 @@
         <label class="form-label">구분 (상세 항목)</label>
         <select class="form-select" id="fCat" onchange="updatePointPreview()"></select>
       </div>
+      <div class="form-group full" id="fMediaGroup" style="display:none">
+        <label class="form-label">매체</label>
+        <select class="form-select" id="fMedia">
+          <option value="인스타그램">인스타그램</option>
+          <option value="링크드인">링크드인</option>
+          <option value="유튜브">유튜브</option>
+          <option value="페이스북">페이스북</option>
+          <option value="X(트위터)">X(트위터)</option>
+          <option value="기타">기타</option>
+        </select>
+      </div>
       <div class="form-group full">
         <label class="form-label">내용</label>
         <input class="form-input" type="text" id="fTitle" placeholder="예: 링크드인 신제품 소개 피드 게시">
@@ -1073,7 +1046,7 @@
 
 <script>
 /* ═══════════════════════════════════════════════
-   마케팅 인프라 정량 환산 기준 (컨텐츠별 공수 점수 × 진행 횟수)
+   마케팅 인프라 정량 환산 기본 항목 (컨텐츠별 공수 점수 × 진행 횟수)
 ═══════════════════════════════════════════════ */
 const DEFAULT_CATS = [
   { key: 'homepage',    group: '홈페이지 운영 관리 전반',      detail: '홈페이지 유지보수 / 컨텐츠 작성',                point: 50, target: 2,  unit: '건', note: '국문, 영문 홈페이지 관련',                                             color: '#4f7aff' },
@@ -1484,7 +1457,7 @@ function renderLog() {
       return `<tr>
         <td class="date-cell">${esc(e.date)}</td>
         <td><span class="tag" style="background:${c.color}18;color:${c.color}">${esc(c.group || e.cat)}</span></td>
-        <td class="title-cell">${esc(e.title)}${e.note ? `<div class="note-sub">${esc(e.note)}</div>` : ''}</td>
+        <td class="title-cell">${e.media ? `<span class="media-chip">${esc(e.media)}</span>` : ''}${esc(e.title)}${e.note ? `<div class="note-sub">${esc(e.note)}</div>` : ''}</td>
         <td class="num-cell">${e.count}<span class="unit">${c.unit || ''}</span></td>
         <td class="num-cell big" style="color:var(--accent)">${fmt(pts)}P</td>
         <td class="action-cell">
@@ -1518,6 +1491,7 @@ function openModal(id) {
   document.getElementById('fTitle').value = e ? e.title : '';
   document.getElementById('fCount').value = e ? e.count : 1;
   document.getElementById('fNote').value  = e ? (e.note || '') : '';
+  document.getElementById('fMedia').value = e && e.media ? e.media : '인스타그램';
   updatePointPreview();
   document.getElementById('entryModal').classList.add('open');
   setTimeout(() => document.getElementById('fTitle').focus(), 250);
@@ -1525,7 +1499,10 @@ function openModal(id) {
 function closeModal() { document.getElementById('entryModal').classList.remove('open'); }
 
 function updatePointPreview() {
-  const c = catByKey(document.getElementById('fCat').value);
+  const catKey = document.getElementById('fCat').value;
+  // SNS 미디어 채널 선택 시에만 '매체' 입력란 표시
+  document.getElementById('fMediaGroup').style.display = (catKey === 'sns') ? '' : 'none';
+  const c = catByKey(catKey);
   const n = Number(document.getElementById('fCount').value) || 0;
   if (!c) return;
   document.getElementById('previewFormula').textContent = `${c.point}P × ${n}${c.unit} =`;
@@ -1538,6 +1515,7 @@ function saveEntry() {
   const title = document.getElementById('fTitle').value.trim();
   const count = Number(document.getElementById('fCount').value);
   const note  = document.getElementById('fNote').value.trim();
+  const media = (cat === 'sns') ? document.getElementById('fMedia').value : '';
 
   if (!date)  { alert('날짜를 입력하세요.'); return; }
   if (!title) { alert('내용을 입력하세요.'); return; }
@@ -1546,9 +1524,9 @@ function saveEntry() {
   let row;
   if (editingId != null) {
     row = entries.find(x => x.id === editingId);
-    Object.assign(row, { date, cat, title, count, note });
+    Object.assign(row, { date, cat, title, count, note, media });
   } else {
-    row = { id: nextId++, date, cat, title, count, note };
+    row = { id: nextId++, date, cat, title, count, note, media };
     entries.push(row);
   }
   saveLocal();
@@ -1625,7 +1603,7 @@ async function apiPost(body) {
 }
 
 async function loadFromDrive() {
-  if (!SCRIPT_URL) { openSetupModal(); return; }
+  if (!SCRIPT_URL) return;
   setSyncStatus('loading', '불러오는 중...');
   document.getElementById('btnLoad').disabled = true;
   try {
@@ -1639,6 +1617,7 @@ async function loadFromDrive() {
           cat: r.cat, title: r.title || '',
           count: Number(r.count) || 0,
           note: r.note || '',
+          media: r.media || '',
         }));
         nextId = Math.max(...entries.map(e => Number(e.id) || 0)) + 1;
         saveLocal();
@@ -1707,7 +1686,7 @@ async function deleteRowFromSheets(id) {
 }
 
 async function saveToDrive() {
-  if (!SCRIPT_URL) { openSetupModal(); return; }
+  if (!SCRIPT_URL) return;
   if (isSyncing) return;
   isSyncing = true;
   setSyncStatus('saving', '전체 저장 중...');
@@ -1728,110 +1707,6 @@ function openSetupModal() {
   alert('Apps Script URL이 이미 설정되어 있습니다.\n\n배포 URL: ' + SCRIPT_URL.substring(0, 60) + '...\n\n페이지를 열면 자동으로 불러오고, 실적 등록·수정·삭제 시 자동 저장됩니다.');
 }
 function closeSetupModal() {}
-
-/* ─── Apps Script 코드 (지정 Drive 폴더에 스프레드시트 자동 생성) ─── */
-const GAS_CODE = `/** 소프트힐스 마케팅 KPI — Google Apps Script
- * Drive 폴더(${DRIVE_FOLDER_ID}) 안에 '마케팅 KPI 실적' 스프레드시트를 만들어 데이터를 저장합니다.
- */
-const FOLDER_ID = '${DRIVE_FOLDER_ID}';
-const SS_NAME   = '마케팅 KPI 실적';
-const HEADERS   = ['id','date','cat','title','count','note'];
-
-function getSheet_() {
-  const folder = DriveApp.getFolderById(FOLDER_ID);
-  const files = folder.getFilesByName(SS_NAME);
-  let ss;
-  if (files.hasNext()) {
-    ss = SpreadsheetApp.open(files.next());
-  } else {
-    ss = SpreadsheetApp.create(SS_NAME);
-    DriveApp.getFileById(ss.getId()).moveTo(folder);
-  }
-  let sh = ss.getSheetByName('entries');
-  if (!sh) {
-    sh = ss.insertSheet('entries');
-    sh.appendRow(HEADERS);
-  }
-  return sh;
-}
-
-function readAll_(sh) {
-  const values = sh.getDataRange().getValues();
-  const rows = [];
-  for (let i = 1; i < values.length; i++) {
-    const o = {};
-    HEADERS.forEach((h, j) => o[h] = values[i][j]);
-    if (o.date instanceof Date) o.date = Utilities.formatDate(o.date, 'Asia/Seoul', 'yyyy-MM-dd');
-    rows.push(o);
-  }
-  return rows;
-}
-
-function getKpiSheet_() {
-  const ss = getSheet_().getParent();
-  let sh = ss.getSheetByName('kpi');
-  if (!sh) {
-    sh = ss.insertSheet('kpi');
-    sh.getRange(1, 1).setValue('{}');
-  }
-  return sh;
-}
-
-function doGet(e) {
-  const sh = getSheet_();
-  let kv = {};
-  try { kv = JSON.parse(getKpiSheet_().getRange(1, 1).getValue() || '{}'); } catch (err) {}
-  const out = { ok: true, data: readAll_(sh), kpiResults: kv.kpiResults || {}, kpiLogs: kv.kpiLogs || {}, cats: kv.cats || [], catConfig: kv.catConfig || {} };
-  const cb = e.parameter.callback;
-  const body = cb ? cb + '(' + JSON.stringify(out) + ')' : JSON.stringify(out);
-  return ContentService.createTextOutput(body)
-    .setMimeType(cb ? ContentService.MimeType.JAVASCRIPT : ContentService.MimeType.JSON);
-}
-
-function doPost(e) {
-  const sh = getSheet_();
-  let out = { ok: true };
-  try {
-    const body = JSON.parse(e.postData.contents);
-    if (body.action === 'save_kpi') {
-      getKpiSheet_().getRange(1, 1).setValue(JSON.stringify({
-        kpiResults: body.kpiResults || {},
-        kpiLogs: body.kpiLogs || {},
-        cats: body.cats || []
-      }));
-    } else if (body.action === 'save_row') {
-      const r = body.row;
-      const values = sh.getDataRange().getValues();
-      let rowIdx = -1;
-      for (let i = 1; i < values.length; i++) {
-        if (String(values[i][0]) === String(r.id)) { rowIdx = i + 1; break; }
-      }
-      const rowArr = HEADERS.map(h => r[h] !== undefined ? r[h] : '');
-      if (rowIdx > 0) sh.getRange(rowIdx, 1, 1, HEADERS.length).setValues([rowArr]);
-      else sh.appendRow(rowArr);
-    } else if (body.action === 'delete_row') {
-      const values = sh.getDataRange().getValues();
-      for (let i = values.length - 1; i >= 1; i--) {
-        if (String(values[i][0]) === String(body.id)) sh.deleteRow(i + 1);
-      }
-    } else {
-      out = { ok: false, error: 'unknown action' };
-    }
-  } catch (err) {
-    out = { ok: false, error: String(err) };
-  }
-  return ContentService.createTextOutput(JSON.stringify(out))
-    .setMimeType(ContentService.MimeType.JSON);
-}`;
-
-function copyGasCode() {
-  navigator.clipboard.writeText(GAS_CODE)
-    .then(() => alert('Apps Script 코드가 복사되었습니다.\nscript.google.com 프로젝트에 붙여넣고 새 버전으로 재배포하세요.'))
-    .catch(() => {
-      const w = window.open('', '_blank');
-      w.document.write('<pre>' + GAS_CODE.replace(/</g, '&lt;') + '</pre>');
-    });
-}
 
 /* ─── 엑셀 다운로드 ─── */
 function exportExcel() {
@@ -1880,10 +1755,11 @@ function exportExcel() {
       const c = catByKey(e.cat) || {};
       return {
         '날짜': e.date, '구분': c.group || e.cat, '상세': c.detail || '',
+        '매체': e.media || '',
         '내용': e.title, '횟수': e.count, '환산 점수(P)': (c.point || 0) * e.count, '비고': e.note || '',
       };
     });
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(s2.length ? s2 : [{'날짜':'','구분':'','상세':'','내용':'','횟수':'','환산 점수(P)':'','비고':''}]), '실적 이력');
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(s2.length ? s2 : [{'날짜':'','구분':'','상세':'','매체':'','내용':'','횟수':'','환산 점수(P)':'','비고':''}]), '실적 이력');
 
   XLSX.writeFile(wb, `소프트힐스_마케팅KPI_${new Date().toISOString().slice(0,10)}.xlsx`);
 }
